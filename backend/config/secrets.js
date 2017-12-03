@@ -5,5 +5,5 @@
 
 module.exports = {
     token : "secret-starter-mern",
-    mongo_connection : "mongodb://matt:aPassword@ds031835.mlab.com:31835/mcheung3_498mp3"
+    mongo_connection : "mongodb://ZohairZaman:password498@ds129066.mlab.com:29066/sanitycheck"
 };
