@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 
 // Define our class schema
 var classSchema = new mongoose.Schema({
-    crn: String,
     number: String,
     major: String,
     name: String,
+    creditHours: Integer,
     quality: Integer,
     difficulty: Integer,
     hours: Integer,
