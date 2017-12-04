@@ -1,6 +1,7 @@
 // Load required packages
 var mongoose = require('mongoose');
-var tasks = require('./task');
+var classes = require('./class');
+var reviews = require('./review');
 
 // Define our student schema
 var studentSchema = new mongoose.Schema({

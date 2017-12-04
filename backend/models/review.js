@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 // Define our student schema
-var reviewSchema = new mongoose.Schema({
+var studentSchema = new mongoose.Schema({
     netid: String,
     class: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ var reviewSchema = new mongoose.Schema({
     }
   }, { versionKey: false });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('Review', studentSchema);
