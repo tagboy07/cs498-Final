@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import styles from './Login.scss'
 
-import styles from './Home.scss'
 
-
-class Home extends Component {
+class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,10 +25,13 @@ class Home extends Component {
   							<input type="checkbox" />
   							<label>Remember Me</label>
 						</div>
+						<Button>
+    						Login
+						</Button>
 					</div>
             </div>
         )
     }
 }
 
-export default Home
+export default Login

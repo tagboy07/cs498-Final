@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css';
 
 // Include your new Components here
-import Home from './components/Home/Home.jsx';
+import Login from './components/Login/Login.jsx';
 
 // Include any new stylesheets here
 // Note that components' stylesheets should NOT be included here.
@@ -12,7 +12,7 @@ import Home from './components/Home/Home.jsx';
 require('./styles/main.scss');
 
 render(
-    <Home />,
+    <Login />,
     // Define your router and replace <Home /> with it!
     document.getElementById('app')
 );
