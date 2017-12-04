@@ -5,6 +5,7 @@ import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 //import LinkedStateMixin from 'react-linked-state-adapter';
 import styles from './Login.scss'
 import Auth from './Auth.js'
+import axios from 'axios'
 
 class Login extends Component {
 	constructor(props) {
@@ -28,8 +29,19 @@ class Login extends Component {
 
     login(event) {
     	event.preventDefault();
-    //Authenticate NetId/Password
-	 Auth.login(this.state.netId, this.state.password);
+
+      axios.post('http://localhost:3000/api/login/', {
+        netId: this.state.netId, 
+        lastName: this.state.password
+      })
+      .then(function (response) {
+        console.log(response);
+        //TODO: Handle Right Password
+      })
+      .catch(function (error) {
+        console.log(error);
+        //TODO: Handle Wrong Password
+      });
 
   	}
     render() {
