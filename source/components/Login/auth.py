@@ -15,8 +15,8 @@ def login():
     l.set_option( ldap.OPT_DEBUG_LEVEL, 255 )
     l.start_tls_s()
 
-    username = 'CN=' + 'netid' + ',OU=People,DC=ad,DC=uillinois,DC=edu'
-    password = 'password'
+    username = 'CN=' + 'goodin2' + ',OU=People,DC=ad,DC=uillinois,DC=edu'
+    password = 'asdf'
 
     try: 
         l.simple_bind_s(username, password)
