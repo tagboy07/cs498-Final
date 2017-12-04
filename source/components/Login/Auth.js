@@ -2,11 +2,12 @@
 class AuthService {
 
   login(netId, password) {
-    $.ajax({
-       url: "./Auth.py",
-       success: function(response) {
-       }
+    var PythonShell = require('python-shell');
+    PythonShell.run('auth.py', function (err) {
+      console.log('finished');
     });
+
+
   }
 }
 

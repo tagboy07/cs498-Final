@@ -7,8 +7,10 @@ var express = require('express'),
 
 // Create our Express application
 var app = express();
-var user = require('./routes/user');
-var task = require('./routes/task');
+var login = require('./routes/login');
+var classRoute = require('./routes/class');
+var review = require('./routes/review');
+var student = require('./routes/student');
 
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
@@ -34,8 +36,10 @@ app.use(bodyParser.json());
 // Use routes as a module (see index.js)
 require('./routes')(app, router);
 
-app.use("/api/users", user);
-app.use("/api/tasks", task);
+app.use("/api/login", login);
+app.use("/api/class", classRoute);
+app.use("/api/review", review);
+app.use("/api/student", student);
 
 // Start the server
 app.listen(port);

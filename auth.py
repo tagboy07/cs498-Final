@@ -33,4 +33,4 @@ def login():
     l.unbind_s();
     return "0"
 
-print( login() )
+return login()
