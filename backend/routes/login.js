@@ -4,15 +4,37 @@ var express = require('express'),
 
 
 router.post('/', function(req, res) {
-	 let theLogin = {
-	  netId: req.body.netId,
-	  password: req.body.password 
-	 };
 
-	res.status(200).send({
-		message: 'OK',
-		data: {}
+	let theLogin = {
+	   netId: req.body.netId,
+	   password: req.body.password 
+	};
+
+
+	let word = ":)"
+ 	var PythonShell = require('python-shell');
+	 
+	PythonShell.run('auth.py', function (err) {
+	  if (err)
+	  	word = 'FAILED';
+	  else
+	  	word = 'GOOD';
 	});
+
+
+
+
+	sleep(10000).then(() => {
+    	res.status(200).send({
+		message: 'OK',
+		data: word
+		});
+	})
 });
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 
 module.exports = router;
