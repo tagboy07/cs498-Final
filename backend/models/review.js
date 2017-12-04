@@ -7,9 +7,9 @@ var reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "class"
     },
-    quality: Integer,
-    difficulty: Integer,
-    hours: Integer,
+    quality: Number,
+    difficulty: Number,
+    hours: Number,
     comment: String,
     anon: {
       type: Boolean,

@@ -5,10 +5,10 @@ var classSchema = new mongoose.Schema({
     number: String,
     major: String,
     name: String,
-    creditHours: Integer,
-    quality: Integer,
-    difficulty: Integer,
-    hours: Integer,
+    creditHours: Number,
+    quality: Number,
+    difficulty: Number,
+    hours: Number,
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
