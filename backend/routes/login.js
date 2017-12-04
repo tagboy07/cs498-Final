@@ -10,7 +10,12 @@ router.post('/', function(req, res) {
 	   password: req.body.password 
 	};
 
+	res.status(200).send({
+	message: 'OK',
+	data: theLogin
+	});
 
+/*
 	let word = ":)"
  	var PythonShell = require('python-shell');
 	 
@@ -21,15 +26,13 @@ router.post('/', function(req, res) {
 	  	word = 'GOOD';
 	});
 
-
-
-
 	sleep(10000).then(() => {
     	res.status(200).send({
 		message: 'OK',
 		data: word
 		});
-	})
+	})*/
+
 });
 
 function sleep (time) {
