@@ -47,7 +47,6 @@ class Login extends Component {
     render() {
         return(
             <div className="Login">
-                <h1>Sanity Check</h1>
                    <form role='form'>
 			        <div className='form-group'>
 			          <input type='text' value={this.state.netId}  onChange={this.handleNetIdChange} placeholder='NetId' />

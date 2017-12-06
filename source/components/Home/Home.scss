@@ -1,0 +1,44 @@
+.searchSection{
+	position: relative;
+	width: 100%;
+	height: 673px;
+	background-image: url(../../assets/quad.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.transparentBlue{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgba(53, 53, 83, 0.56);
+}
+
+.Home form{
+	height: 80px;
+	width: 50%;
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.Home input{
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 48px;
+	color: gray;
+}
+
+.Home input:focus{
+	outline-width: 0;
+}
+
+//Get's rid of ellipses when text field is focused
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
+input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
