@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-//import LinkedStateMixin from 'react-linked-state-adapter';
-import styles from './Login.scss'
-import Auth from './Auth.js'
 import axios from 'axios'
 
-class Login extends Component {
+class Register extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -47,19 +44,16 @@ class Login extends Component {
     render() {
         return(
             <div className="Login">
-            <form role='form'>
+                   <form role='form'>
 			        <div className='form-group'>
 			          <input type='text' value={this.state.netId}  onChange={this.handleNetIdChange} placeholder='NetId' />
 			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
 			        </div>
 			        <button type='submit' onClick={this.login.bind(this)}>Submit</button>
 			      </form>
-            <div>
-                <Link to={"/register"}>register</Link>
-            </div>
             </div>
         )
     }
 }
 
-export default Login
+export default Register

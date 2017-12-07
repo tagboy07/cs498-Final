@@ -9,7 +9,7 @@ import Home from './components/Home/Home.jsx';
 import Class from './components/Class/Class.jsx';
 import Login from './components/Login/Login.jsx';
 import Header from './components/Header/Header.jsx';
-
+import Register from './components/Register/Register.jsx';
 
 // Include any new stylesheets here
 // Note that components' stylesheets should NOT be included here.
@@ -24,6 +24,7 @@ render(
         <div>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="/header" component={Header} />
           <Route path="/class/:id" component={Class} />
         </div>
