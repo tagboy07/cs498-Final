@@ -2,7 +2,7 @@ var express = require('express'),
   router = express.Router(),
   ReviewSchema = require('../models/review');
 
-router.post('/review', function(req, res) {
+router.post('/', function(req, res) {
 	var reviewData = {
 		netid: req.body.netid,
 		class: req.body.class,
@@ -29,7 +29,7 @@ router.post('/review', function(req, res) {
 	})
 });
 
-router.get('/review/:id', function(req, res){
+router.get('/:id', function(req, res){
     ReviewSchema.findById(req.params.id, function(err, review){
       if(err) {
 			res.status(500).send({
@@ -53,7 +53,7 @@ router.get('/review/:id', function(req, res){
     });
   });
 
-router.delete('/review/:id', function(req, res){
+router.delete('/:id', function(req, res){
 	ReviewSchema.findByIdAndRemove(req.params.id, function(err, review){
 		if(err) {
 			res.status(500).send({
@@ -77,7 +77,7 @@ router.delete('/review/:id', function(req, res){
 	});
 });
 
-router.put('/review/:id', function(req, res) {
+router.put('/:id', function(req, res) {
 	var reviewData = {
 		netid: req.body.netid,
 		class: req.body.class,

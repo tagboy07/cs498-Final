@@ -4,13 +4,15 @@ var express = require('express'),
 
 module.exports = function(router, passport) {
     router.post('/register', passport.authenticate('local-signup'),function(req, res) {
-            res.status(200).json({ user: req.body.Username
-        });
+            res.status(200).json({ 
+                    user: req.body.Username
+                });
     });
 
     router.post('/login', passport.authenticate('local-login'), function(req, res) {
+        console.log("asdfasdfasf")
             console.log(req.isAuthenticated());
-            res.status(200).json({ user: req.user.email
+            res.status(200).json({ user: req.body.Username
         });
     });
 
