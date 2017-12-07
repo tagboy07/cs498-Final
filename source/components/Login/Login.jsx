@@ -11,15 +11,15 @@ class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		      netId: '',
+		      Username: '',
 		      password: ''
 		};
-		this.handleNetIdChange = this.handleNetIdChange.bind(this);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
   	}
 
-  	handleNetIdChange(event) {
-    	this.setState({netId: event.target.value});
+  	handleUsernameChange(event) {
+    	this.setState({Username: event.target.value});
     }
 
     handlePasswordChange(event) {
@@ -30,9 +30,9 @@ class Login extends Component {
     login(event) {
     	event.preventDefault();
 
-      axios.post('http://localhost:3000/api/login/', {
-        netId: this.state.netId, 
-        lastName: this.state.password
+      axios.post('http://localhost:3000/api/account/login', {
+        Username: this.state.Username, 
+        password: this.state.password
       })
       .then(function (response) {
         console.log(response);
@@ -49,13 +49,13 @@ class Login extends Component {
             <div className="Login">
             <form role='form'>
 			        <div className='form-group'>
-			          <input type='text' value={this.state.netId}  onChange={this.handleNetIdChange} placeholder='NetId' />
+			          <input type='text' value={this.state.Username}  onChange={this.handleUsernameChange} placeholder='Username' />
 			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
 			        </div>
 			        <button type='submit' onClick={this.login.bind(this)}>Submit</button>
 			      </form>
             <div>
-                <Link to={"/register"}>register</Link>
+                <Link to={"/register"}>Register</Link>
             </div>
             </div>
         )

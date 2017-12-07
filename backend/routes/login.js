@@ -1,43 +1,37 @@
+var passport = passport = require('passport');
 var express = require('express'),
-  router = express.Router(),
   loginScheme = require('../models/login');
 
+module.exports = function(router, passport) {
+    router.post('/register', passport.authenticate('local-signup'),function(req, res) {
+            res.status(200).json({ user: req.body.Username
+        });
+    });
 
-router.post('/', function(req, res) {
+    router.post('/login', passport.authenticate('local-login'), function(req, res) {
+            console.log(req.isAuthenticated());
+            res.status(200).json({ user: req.user.email
+        });
+    });
 
-	let theLogin = {
-	   netId: req.body.netId,
-	   password: req.body.password 
-	};
 
-	res.status(200).send({
-	message: 'OK',
-	data: theLogin
-	});
+    router.get('/profile', isLoggedIn, function(req, res) {
+            console.log(req.isAuthenticated());
+            res.status(200).json({ user: req.user, message: "Welcome!"
+        });
+    });
 
-/*
-	let word = ":)"
- 	var PythonShell = require('python-shell');
-	 
-	PythonShell.run('auth.py', function (err) {
-	  if (err)
-	  	word = 'FAILED';
-	  else
-	  	word = 'GOOD';
-	});
+    router.get('/logout', function(req, res) {
+        req.logOut();
+        res.status(200).json({ message: "logged out "});
+    });
 
-	sleep(10000).then(() => {
-    	res.status(200).send({
-		message: 'OK',
-		data: word
-		});
-	})*/
-
-});
-
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
+    return router
 }
 
-
-module.exports = router;
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.status(401).json({ message: "unable to auth" });
+}

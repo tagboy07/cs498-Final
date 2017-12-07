@@ -8,15 +8,20 @@ class Register extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		      netId: '',
-		      password: ''
+		      Username: '',
+		      password: '',
+          repeatPassword: ''
 		};
-		this.handleNetIdChange = this.handleNetIdChange.bind(this);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleRepeatPasswordChange = this.handleRepeatPasswordChange.bind(this);
   	}
 
-  	handleNetIdChange(event) {
-    	this.setState({netId: event.target.value});
+    handleRepeatPasswordChange(event) {
+      this.setState({repeatPassword: event.target.value});
+    }
+  	handleUsernameChange(event) {
+    	this.setState({Username: event.target.value});
     }
 
     handlePasswordChange(event) {
@@ -27,8 +32,8 @@ class Register extends Component {
     login(event) {
     	event.preventDefault();
 
-      axios.post('http://localhost:3000/api/login/', {
-        netId: this.state.netId, 
+      axios.post('http://localhost:3000/api/user/register', {
+        Username: this.state.Username, 
         lastName: this.state.password
       })
       .then(function (response) {
@@ -46,10 +51,11 @@ class Register extends Component {
             <div className="Login">
                    <form role='form'>
 			        <div className='form-group'>
-			          <input type='text' value={this.state.netId}  onChange={this.handleNetIdChange} placeholder='NetId' />
+			          <input type='text' value={this.state.Username}  onChange={this.handleUsernameChange} placeholder='Username' />
 			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
+                <input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Repeat Password' />
 			        </div>
-			        <button type='submit' onClick={this.login.bind(this)}>Submit</button>
+			        <button type='submit' onClick={this.login.bind(this)}>Create Account!</button>
 			      </form>
             </div>
         )

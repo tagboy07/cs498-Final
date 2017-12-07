@@ -5,7 +5,8 @@ var express = require('express'),
 
 router.post('/student', function(req, res) {
 	var studentData = {
-		netid: req.body.netid,
+		email: req.body.email,
+		password: req.body.password,
 		reviews: req.body.reviews || [],
 		classes: req.body.classes || []
 	}
@@ -51,7 +52,8 @@ router.get('/student/:id', function(req, res){
 
 router.put('/student/:id', function(req, res) {
 	var studentData = {
-		netid: req.body.netid,
+		email: req.body.email,
+		password: req.body.password,
 		reviews: req.body.reviews || [],
 		classes: req.body.classes || []
 	}

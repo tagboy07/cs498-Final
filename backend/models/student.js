@@ -2,10 +2,13 @@
 var mongoose = require('mongoose');
 var classes = require('./class');
 var reviews = require('./review');
+var bcrypt = require('bcrypt');
+
 
 // Define our student schema
 var studentSchema = new mongoose.Schema({
-    netid: String,
+    email: String,
+    password: String,
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,6 +22,14 @@ var studentSchema = new mongoose.Schema({
       }
     ]
 }, { versionKey: false });
+
+studentSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+studentSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 // Export the Mongoose model
 module.exports = mongoose.model('Student', studentSchema);
