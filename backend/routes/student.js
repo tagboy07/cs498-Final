@@ -3,7 +3,7 @@ var express = require('express'),
   studentSchema = require('../models/student');
 
 
-router.post('/student', function(req, res) {
+router.post('/', function(req, res) {
 	var studentData = {
 		username: req.body.username,
 		password: req.body.password,
@@ -26,7 +26,7 @@ router.post('/student', function(req, res) {
 	})
 });
 
-router.get('/student/:id', function(req, res){
+router.get('/:id', function(req, res){
     studentSchema.findById(req.params.id, function(err, student){
       if(err) {
 			res.status(500).send({
@@ -50,7 +50,7 @@ router.get('/student/:id', function(req, res){
     });
   });
 
-router.put('/student/:id', function(req, res) {
+router.put('/:id', function(req, res) {
 	var studentData = {
 		username: req.body.username,
 		password: req.body.password,
