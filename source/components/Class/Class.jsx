@@ -20,6 +20,11 @@ class Class extends Component {
 				<h3>Quality</h3>
 				<h3>Difficulty</h3>
 				<h3>Hours</h3>
+				<Link to="/review">
+					<button type="button">
+          				Wrte Review
+     				</button>
+ 				</Link>
 			</div>
 		)
 	}
