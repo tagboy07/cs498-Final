@@ -3,8 +3,9 @@ var express = require('express'),
   ClassSchema = require('../models/class');
 
 
-router.get('/class', function(req, res) {
+router.get('/', function(req, res) {
 	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
+	
 	ClassSchema.find(whereQ, function(err, Class) {
 		if(err) {
 			res.status(500).send({

@@ -13,7 +13,7 @@ router.post('/', function(req, res) {
 		anon: req.body.anon,
 		dateCreated: req.body.dateCreated,
 	}
-
+	console.log("here");
 	ReviewSchema.create(reviewData, function(err, review) {
 		if(err) {
 			res.status(500).send({
