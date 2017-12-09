@@ -14,7 +14,8 @@ module.exports = function(router, passport) {
     req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
 
-    var errors = req.validationErrors();
+    console.log(req.body)
+    var errors = false;//req.validationErrors();
     if (errors) {
       res.render('signup',{user:null,frm_messages:errors});
     } else {
