@@ -17,13 +17,13 @@ module.exports = function(passport) {
 
     // Registration Strategy
     passport.use('local-signup', new LocalStrategy({
-        usernameField : 'email',
+        usernameField : 'username',
         passwordField : 'password'
     },
     function(username, password, done) {
       process.nextTick(function() {
         console.log('in passport lol')
-        student.findOne({'email' : username}, function(err, user) {
+        student.findOne({'username' : username}, function(err, user) {
             if ( err ) {
                 console.log('checking error')
                 return done(err);
@@ -34,7 +34,7 @@ module.exports = function(passport) {
                 console.log('in passpor auth')
                 var newUser = new student();
 
-                newUser.email = username;
+                newUser.username = username;
                 newUser.password = newUser.generateHash(password);
 
                 newUser.save(function(err) {
@@ -50,12 +50,12 @@ module.exports = function(passport) {
 
     // Login Strategy
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
         passReqToCallback : true
     },
-    function(email, password, done) {
-        student.findOne({'email': email}, function(err, user) {
+    function(username, password, done) {
+        student.findOne({'username': username}, function(err, user) {
             if ( err ) {
                 return done(err);
             } else if ( !user || !user.validPassword(password) ) {

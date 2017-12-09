@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt');
 
 // Define our student schema
 var studentSchema = new mongoose.Schema({
-    email: String,
+    username: String,
     password: String,
     reviews: [
       {

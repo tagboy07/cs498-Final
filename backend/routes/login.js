@@ -11,7 +11,7 @@ module.exports = function(router, passport) {
   // }));
 
   router.post('/register', function(req, res, next) {
-    req.checkBody('Username', 'Username is required').notEmpty();
+    req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
 
     var errors = req.validationErrors();
@@ -21,6 +21,8 @@ module.exports = function(router, passport) {
       console.log("body parsing", req.body);
       passport.authenticate('local-signup', {session: false}, function(err, user, info) {
         console.log("Test:" + user);
+        console.log("Info is:", info);
+        console.log(err)
         if (err) {
           console.log("Error1");
           return next(err);
