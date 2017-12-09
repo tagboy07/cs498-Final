@@ -5,6 +5,8 @@ var express = require('express'),
     secrets = require('./config/secrets'),
     bodyParser = require('body-parser');
 const passport = require('passport');
+var expressValidator = require('express-validator');
+
 
 // Create our Express application
 var app = express();
@@ -21,6 +23,8 @@ var port = process.env.PORT || 3000;
 
 // Connect to a MongoDB
 mongoose.connect(secrets.mongo_connection, { useMongoClient: true});
+
+app.use(expressValidator());
 
 /* NEW */
 require('./auth/passport')(passport);
