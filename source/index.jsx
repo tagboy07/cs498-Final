@@ -10,6 +10,7 @@ import Class from './components/Class/Class.jsx';
 import Login from './components/Login/Login.jsx';
 import Header from './components/Header/Header.jsx';
 import Register from './components/Register/Register.jsx';
+import Review from './components/Review/Review.jsx';
 
 // Include any new stylesheets here
 // Note that components' stylesheets should NOT be included here.
@@ -27,6 +28,7 @@ render(
           <Route path="/register" component={Register} />
           <Route path="/header" component={Header} />
           <Route path="/class/:id" component={Class} />
+					<Route path="/review/" component={Review} />
         </div>
       </div>
     </Router>,
