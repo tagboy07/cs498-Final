@@ -24,7 +24,11 @@ class Home extends Component {
   }
 	
 	submit(event){
-		this.props.history.push(`/class/${this.state.value}`);
+    event.preventDefault();
+		this.props.history.push({
+      pathname: `/class/${this.state.value}`,
+      state: { className : this.state.value}
+    });
 	}
 
   render() {

@@ -9,9 +9,12 @@ class Class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  
+		  	className : this.props.location.state.className
 		};
+		console.log(this.state.className);
   }
+
+  
 	
 	render() {
 		return(
