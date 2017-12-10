@@ -29,6 +29,14 @@ render(
         <Route path="/class/:id" component={Class} />
         <Route path="/review/" component={Review} />
 
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/header" component={Header} />
+          <Route path="/class/:id" component={Class} />
+			<Route path="/review/" component={Review} />
+        </div>
       </div>
     </Router>,
     document.getElementById('app')
