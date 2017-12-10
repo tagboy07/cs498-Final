@@ -4,7 +4,7 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
 	var reviewData = {
-		netid: req.body.netid,
+		username: req.body.username,
 		class: req.body.class,
 		quality: req.body.quality,
 		difficulty: req.body.difficulty,
@@ -79,7 +79,7 @@ router.delete('/:id', function(req, res){
 
 router.put('/:id', function(req, res) {
 	var reviewData = {
-		netid: req.body.netid,
+		username: req.body.username,
 		class: req.body.class,
 		quality: req.body.quality,
 		difficulty: req.body.difficulty,
