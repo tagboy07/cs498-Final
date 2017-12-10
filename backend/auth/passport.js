@@ -51,8 +51,7 @@ module.exports = function(passport) {
     // Login Strategy
     passport.use('local-login', new LocalStrategy({
         usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback : true
+        passwordField: 'password'
     },
     function(username, password, done) {
         student.findOne({'username': username}, function(err, user) {

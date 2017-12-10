@@ -19,22 +19,15 @@ module.exports = function(router, passport) {
     if (errors) {
       res.render('signup',{user:null,frm_messages:errors});
     } else {
-      console.log("body parsing", req.body);
       passport.authenticate('local-signup', {session: false}, function(err, user, info) {
-        console.log("Test:" + user);
-        console.log("Info is:", info);
-        console.log(err)
         if (err) {
-          console.log("Error1");
           return next(err);
         }
         if (!user) {
-          console.log("Error2");
             return res.status(401).json({
               error: 'Auth Error!'
             });
         }
-        console.log("Error 3")
         res.status(200).json({ user: req.body.Username});
       })(req,res, next);// <---- ADDD THIS
     }
