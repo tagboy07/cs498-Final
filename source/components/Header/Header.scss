@@ -4,17 +4,17 @@
 	z-index: 1;
 }
 
-h1{
+.Header h1{
 	position: absolute;
-	top: 2%;
+	top: 10px;
 	left: 5%;
 	font-size: 48px;
 	color: white;
 }
 
 .trap{
-	width: 400px;
-	height: 400px;
+	width: 350px;
+	height: 350px;
 	border-top: 100px solid rgba(32, 32, 46, 0.81);
 	border-left: 100px solid transparent;
 	position: absolute;
@@ -23,12 +23,18 @@ h1{
 
 .links{
 	position: absolute;
-	top: -50px;
-	left: 50px;
+	top: -56px;
+	left: -50px;
 	transform: translateY(-50%);
 	font-size: 32px;
 }
 
+.divider{
+	font-size: 32px;
+	color: white;
+}
+
 .links a{
+	margin: 16px;
 	color: white;
 }

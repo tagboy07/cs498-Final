@@ -22,7 +22,11 @@ class Header extends Component {
 				
 				<div className="trap">
 					<div className="links">
-						<Link to={"/login"}>Login</Link>
+						<ul>
+							<Link to={"/login"}>Profile</Link>
+							<span className="divider">|</span>
+							<Link to={"/login"}>Login</Link>
+						</ul>
 					</div>
 				</div>
 			</div>

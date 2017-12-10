@@ -32,11 +32,14 @@ class Home extends Component {
       <div className="Home">
 				<section className="searchSection">
 					<div className="transparentBlue"></div>
+					<h1>REVIEW A CLASS NOW</h1>
+					<h3>The best place to rate UIUC classes and see how hard next semester will be.</h3>
 					<form onSubmit={this.submit}>
-						<input type="text"
-										placeholder="..."
+						<input  type="text"
+										placeholder="Search for a class..."
 										value={this.state.value} 
-										onChange={this.handleChange}/>
+										onChange={this.handleChange}
+						/>
 					</form>
 				</section>
       </div>

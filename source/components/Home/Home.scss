@@ -3,8 +3,9 @@
 	width: 100%;
 	height: 673px;
 	background-image: url(../../assets/quad.jpg);
-	background-size: contain;
+	background-size: auto;
 	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .transparentBlue{
@@ -14,10 +15,28 @@
 	background-color: rgba(53, 53, 83, 0.56);
 }
 
-.Home form{
-	height: 80px;
-	width: 50%;
+.searchSection h1{
+	width: 100%;
 	position: absolute;
+	top: 35%;
+	text-align: center;
+	font-size: 64px;
+	color: white;
+}
+
+.searchSection h3{
+	width: 100%;
+	position: absolute;
+	top: 49%;
+	text-align: center;
+	font-size: 24px;
+	color: white;
+}
+
+.Home form{
+	width: 50%;
+	height: 80px;
+	position: relative;
 	top: 70%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -26,6 +45,7 @@
 .Home input{
 	width: 100%;
 	height: 100%;
+	padding: 8px;
 	border: none;
 	border-radius: 10px;
 	text-align: center;
