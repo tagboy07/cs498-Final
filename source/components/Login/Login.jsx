@@ -11,7 +11,7 @@ class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		      Username: '',
+		      username: '',
 		      password: ''
 		};
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -19,7 +19,7 @@ class Login extends Component {
   	}
 
   	handleUsernameChange(event) {
-    	this.setState({Username: event.target.value});
+    	this.setState({username: event.target.value});
     }
 
     handlePasswordChange(event) {
@@ -31,7 +31,7 @@ class Login extends Component {
     	event.preventDefault();
 
       axios.post('http://localhost:3000/api/account/login', {
-        Username: this.state.Username, 
+        username: this.state.username, 
         password: this.state.password
       })
       .then(function (response) {
@@ -49,7 +49,7 @@ class Login extends Component {
             <div className="Login">
             <form role='form'>
 			        <div className='form-group'>
-			          <input type='text' value={this.state.Username}  onChange={this.handleUsernameChange} placeholder='Username' />
+			          <input type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
 			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
 			        </div>
 			        <button type='submit' onClick={this.login.bind(this)}>Submit</button>

@@ -8,7 +8,7 @@ class Register extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		      Username: '',
+		      username: '',
 		      password: '',
           repeatPassword: ''
 		};
@@ -21,7 +21,7 @@ class Register extends Component {
       this.setState({repeatPassword: event.target.value});
     }
   	handleUsernameChange(event) {
-    	this.setState({Username: event.target.value});
+    	this.setState({username: event.target.value});
     }
 
     handlePasswordChange(event) {
@@ -32,9 +32,9 @@ class Register extends Component {
     login(event) {
     	event.preventDefault();
 
-      axios.post('http://localhost:3000/api/user/register', {
-        Username: this.state.Username, 
-        lastName: this.state.password
+      axios.post('http://localhost:3000/api/account/register', {
+        username: this.state.username,
+        password: this.state.password
       })
       .then(function (response) {
         console.log(response);
@@ -51,7 +51,7 @@ class Register extends Component {
             <div className="Login">
                    <form role='form'>
 			        <div className='form-group'>
-			          <input type='text' value={this.state.Username}  onChange={this.handleUsernameChange} placeholder='Username' />
+			          <input type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
 			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
                 <input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Repeat Password' />
 			        </div>
