@@ -32,6 +32,8 @@ class Register extends Component {
     login(event) {
     	event.preventDefault();
 
+        let th = this;
+        
       axios.post('http://localhost:3000/api/account/register', {
         username: this.state.username,
         password: this.state.password
@@ -39,6 +41,7 @@ class Register extends Component {
       .then(function (response) {
         console.log(response);
         //TODO: Handle Right Password
+          th.props.history.goBack('login');
       })
       .catch(function (error) {
         console.log(error);

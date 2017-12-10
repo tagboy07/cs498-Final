@@ -16,6 +16,7 @@ class Login extends Component {
 		};
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.login = this.login.bind(this);
   	}
 
   	handleUsernameChange(event) {
@@ -29,6 +30,8 @@ class Login extends Component {
 
     login(event) {
     	event.preventDefault();
+        
+        let th = this;
 
       axios.post('http://localhost:3000/api/account/login', {
         username: this.state.username, 
@@ -37,6 +40,7 @@ class Login extends Component {
       .then(function (response) {
         console.log(response);
         //TODO: Handle Right Password
+        th.props.history.goBack();
       })
       .catch(function (error) {
         console.log(error);

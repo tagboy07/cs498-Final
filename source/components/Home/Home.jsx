@@ -10,18 +10,21 @@ import styles from './Home.scss'
 
 class Home extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    console.log(props);
+    super(props);
     this.state = {
-			value: ''
+        value: '',
+        username: props.username || ''
     };
+    console.log('username:', this.state.username);
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
-  handleChange(event){
-    this.setState({value: event.target.value.toUpperCase() });
-  }
+    handleChange(event){
+        this.setState({value: event.target.value.toUpperCase() });
+    }
 	
 	submit(event){
 		this.props.history.push(`/class/${this.state.value}`);
