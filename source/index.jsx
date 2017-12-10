@@ -28,7 +28,7 @@ render(
           <Route path="/register" component={Register} />
           <Route path="/header" component={Header} />
           <Route path="/class/:id" component={Class} />
-					<Route path="/review/" component={Review} />
+			<Route path="/review/" component={Review} />
         </div>
       </div>
     </Router>,
