@@ -10,46 +10,93 @@ import ReactStars from 'react-stars'
 import styles from './Review.scss'
 
 const ratingChanged = (newRating) => {
-  console.log(newRating)
+	console.log(newRating);
+	this.setState({difficultyrating: newRating});
 }
 
 class Review extends Component {
 
-  constructor() {
-    super();
-    this.state = {value: ''};
+  constructor(props) {
+    super(props);
+    this.state = {comment: '',
+				  qualityrating: 0,
+				  difficultyrating: 0,
+				  hoursrating: 0,
+          username: '',
+          className: ''
+				 };
+	this.handleQualityChange = this.handleQualityChange.bind(this);
+	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
+	this.handleHoursChange = this.handleHoursChange.bind(this);
+	this.handleChange = this.handleChange.bind(this);
+  }
 
+  componentWillMount() {
+    const user = ((this.props.location || {}).state || {}).user
+    const curClass = ((this.props.location || {}).state || {}).className
+    if(user) {
+      this.setState({
+        username: user,
+        className: curClass
+      })
+    }
   }
-	handleChange(event) {
-    	this.setState({value: event.target.value});
-  }
-	handleSubmit(event) {
-		alert('Review Submitted');
-		event.preventDefault();
-  }
+
+	handleQualityChange(e){
+		this.setState({qualityrating: e})
+	}
+	handleDifficultyChange(e){
+		this.setState({difficultyrating: e})
+	}
+	handleHoursChange(e){
+		this.setState({hoursrating: e})
+	}
+	handleChange(e){
+		this.setState({comment: e.target.value});
+	}
+	sendReview(event) {
+    	event.preventDefault();
+		this.setState({comment: event.target.value});
+		if(window.confirm('Submit Review?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
+			axios.post('http://localhost:3000/api/review/', {
+			quality: this.state.qualityrating,
+			difficulty: this.state.difficultyrating,
+			hours: this.state.hoursrating,
+			comment: this.state.comment
+		  })
+		  .then(function (response) {
+			console.log(response);
+		  })
+		  .catch(function (error) {
+			console.log(error);
+		  });
+		window.history.back();
+		}
+
+  	}
   render() {
+    console.log(this.state.username, this.state.className)
     return (
       	<div className="Review">
-			<div className="rating">
-				<h1>Quality</h1>
-				<ReactStars count={5} onChange={ratingChanged} size={24} color2={'#ffd700'} />
-				<h1>Difficulty</h1>
-				<ReactStars count={5} onChange={ratingChanged} size={24} color2={'#ffd700'} />
-				<h1>Hours</h1>
-				<ReactStars count={5} onChange={ratingChanged} size={24} color2={'#ffd700'} />
-			</div>	
-				<form onSubmit={this.handleSubmit}>
+			<div className="Rating">
+				<h1 className = "Before">Quality</h1>
+				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
+				<h1 className = "Before">Difficulty</h1>
+				<ReactStars className = "Stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color2={'#ffd700'} />
+				<h1 className = "Before">Hours</h1>
+				<ReactStars className = "Stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color2={'#ffd700'} />
+				<form className = "Comment" onSubmit={this.handleSubmit}>
 					<label>
-					  Comment:
-					  <input type="text" value={this.state.value} onChange={this.handleChange} />
+						<h3>Comment: </h3>
+						<input className = "textbox" type="text" value={this.state.comment} onChange={this.handleChange}/>
 					</label>
-					<input type="submit" value="Submit" />
+					<input className = "subbutton" type="submit" value="Submit" onClick={this.sendReview.bind(this)}/>
 				</form>
+			</div>
 		</div>
     );
   }
 
+
 }
-
-
-export default Review
+export default Review;

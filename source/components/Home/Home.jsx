@@ -39,7 +39,7 @@ class Home extends Component {
     event.preventDefault();
 		this.props.history.push({
         pathname: `/class/${this.state.value}`,
-        state: {className: this.state.value}
+        state: {className: this.state.value, user: this.state.username}
     });
 	}
 
