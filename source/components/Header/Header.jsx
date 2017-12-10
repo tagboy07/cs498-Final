@@ -17,12 +17,12 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="Header">
-				<Link to={"/"}><h1>Sanity Check</h1></Link>
-				
+      <div className="Header">				
 				<div className="trap">
 					<div className="links">
 						<ul>
+                            <Link to={"/"}>Sanity Check</Link>
+							<span className="divider">|</span>
 							<Link to={"/login"}>Profile</Link>
 							<span className="divider">|</span>
 							<Link to={"/login"}>Login</Link>
