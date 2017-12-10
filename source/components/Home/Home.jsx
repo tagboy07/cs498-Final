@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import PropTypes from 'prop-types';
 import { Container, Divider, Grid, Header, Input } from 'semantic-ui-react'
 
 import styles from './Home.scss'
@@ -15,22 +16,35 @@ class Home extends Component {
     super(props);
     this.state = {
         value: '',
-        username: props.username || ''
+        username: ''
     };
-    console.log('username:', this.state.username);
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
+  }
+
+  componentWillMount() {
+    const user = ((this.props.location || {}).state || {}).user
+    if(user) {
+      this.setState({
+        username: user
+      })
+    }
   }
 
     handleChange(event){
         this.setState({value: event.target.value.toUpperCase() });
     }
-	
+
 	submit(event){
-		this.props.history.push(`/class/${this.state.value}`);
+    event.preventDefault();
+		this.props.history.push({
+        pathname: `/class/${this.state.value}`,
+        state: {className: this.state.value}
+    });
 	}
 
   render() {
+    console.log('username:', this.state.username);
     return (
       <div className="Home">
 				<section className="searchSection">
@@ -40,7 +54,7 @@ class Home extends Component {
 					<form onSubmit={this.submit}>
 						<input  type="text"
 										placeholder="Search for a class..."
-										value={this.state.value} 
+										value={this.state.value}
 										onChange={this.handleChange}
 						/>
 					</form>
@@ -50,6 +64,4 @@ class Home extends Component {
   }
 
 }
-
-
-export default Home
+export default Home;
