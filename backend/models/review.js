@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 // Define our student schema
 var studentSchema = new mongoose.Schema({
-    netid: String,
+    username: String,
     class: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "class"
