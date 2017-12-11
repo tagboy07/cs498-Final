@@ -30,17 +30,20 @@ class Login extends Component {
 
     login(event) {
     	event.preventDefault();
-        
+
         let th = this;
 
       axios.post('http://localhost:3000/api/account/login', {
-        username: this.state.username, 
+        username: this.state.username,
         password: this.state.password
       })
       .then(function (response) {
         console.log(response);
         //TODO: Handle Right Password
-        th.props.history.goBack();
+				th.props.history.push({
+					pathname: '/',
+					state: {user: response.data}
+				});
       })
       .catch(function (error) {
         console.log(error);

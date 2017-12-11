@@ -9,13 +9,17 @@ import styles from './Class.scss'
 class Class extends Component {
 	constructor(props) {
 		super(props);
+		this.submit = this.submit.bind(this)
 		this.state = {
 		  	classObject : this.props.location.state.classObje.data[0],
-		  	reviewDivs: []
+		  	reviewDivs: [],
+			username: '',
+			className: ''
 		};
 		this.getReviews = this.getReviews.bind(this);
 		this.getReviews(this.state.classObject);
   }
+
 
   getReviews(classObj){
     var self = this;
@@ -36,15 +40,33 @@ class Class extends Component {
     	console.log(reviews[i].quality);
       items.push(
         <div className="rev" key={i}>
-          <p> {reviews[i].comment} </p>
-          <p> {reviews[i].quality} </p>
-          <p> {reviews[i].difficulty} </p>
-          <p> {reviews[i].hours} </p>
+          <p> comment: {reviews[i].comment} quality: {reviews[i].quality} difficulty: {reviews[i].difficulty} hours: {reviews[i].hours}</p>
         </div>
       )
     }
     this.setState({reviewDivs: items});
    }
+
+   	componentWillMount() {
+    const user = ((this.props.location || {}).state || {}).user
+		const curClass = ((this.props.location || {}).state || {}).className
+		console.log(user, curClass)
+    if(user) {
+      this.setState({
+        username: user,
+				className: curClass
+      })
+    }
+  }
+
+	submit(event) {
+    event.preventDefault();
+		console.log("Submitting the class", this.state.className, this.state.username)
+		this.props.history.push({
+        pathname: `/review`,
+        state: {className: this.state.className, user: this.state.username}
+    });
+	}
 	
 	render() {
 		return(
@@ -53,11 +75,9 @@ class Class extends Component {
 				<h3>Quality: {this.state.classObject.quality}</h3>
 				<h3>Difficulty: {this.state.classObject.difficulty}</h3>
 				<h3>Hours: {this.state.classObject.hours}</h3>
-				<Link to="/review">
-					<button type="button">
-          				Wrte Review
-     				</button>
- 				</Link>
+				<button onClick={this.submit} type="button">
+          			Write Review
+     			</button>
  				 <div className="reviewss">
  					{this.state.reviewDivs}
  				</div>

@@ -28,7 +28,7 @@ module.exports = function(router, passport) {
               error: 'Auth Error!'
             });
         }
-        res.status(200).json({ user: req.body.Username});
+        res.status(200).json({ user: req.body.username});
       })(req,res, next);// <---- ADDD THIS
     }
   });
@@ -36,7 +36,7 @@ module.exports = function(router, passport) {
   router.post('/login', passport.authenticate('local-login'), function(req, res) {
     console.log("asdfasdfasf")
     console.log(req.isAuthenticated());
-    res.status(200).json({ user: req.body.Username});
+    res.status(200).json({user: req.body.username});
   });
 
 
