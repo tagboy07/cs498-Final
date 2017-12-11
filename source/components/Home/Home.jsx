@@ -15,7 +15,8 @@ class Home extends Component {
     super(props);
     this.state = {
         value: '',
-        username: props.username || ''
+        username: props.username || '',
+        divItems : []
     };
     console.log('username:', this.state.username);
     this.handleChange = this.handleChange.bind(this);
@@ -25,14 +26,26 @@ class Home extends Component {
     handleChange(event){
         this.setState({value: event.target.value.toUpperCase() });
     }
-	
+
 	submit(event){
     event.preventDefault();
-		this.props.history.push({
-      pathname: `/class/${this.state.value}`,
-      state: { className : this.state.value}
-    });
+    const prefixAndPostfix = this.state.value.split(/(\d+)/);
+    var self = this;
+    axios.get('http://localhost:3000/api/class?where={"number":' + prefixAndPostfix[1] + ',' + '"major" :"' + prefixAndPostfix[0] + '"}')
+      .then(function (response) {
+        self.goToClass(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 	}
+
+  goToClass(classObj){
+    this.props.history.push({
+      pathname: `/class/${this.state.value}`,
+      state: { classObje : classObj}
+    });
+  }
 
   render() {
     return (
