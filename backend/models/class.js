@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 // Define our class schema
 var classSchema = new mongoose.Schema({
-    number: String,
+    number: Number,
     major: String,
     name: String,
     creditHours: Number,
