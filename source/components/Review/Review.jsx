@@ -84,6 +84,7 @@ class Review extends Component {
     console.log(this.state.username, this.state.className)
     return (
       	<div className="Review">
+			<h1 className = "Classheader">{this.state.className}</h1>
 			<div className="Rating">
 				<h1 className = "Before">Quality</h1>
 				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
