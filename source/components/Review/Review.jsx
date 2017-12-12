@@ -9,21 +9,21 @@ import ReactStars from 'react-stars'
 
 import styles from './Review.scss'
 
-const ratingChanged = (newRating) => {
-	console.log(newRating);
-	this.setState({difficultyrating: newRating});
-}
+//const ratingChanged = (newRating) => {
+//	console.log(newRating);
+//	this.setState({difficultyrating: newRating});
+//}
 
 class Review extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {comment: '',
-				  qualityrating: 0,
-				  difficultyrating: 0,
-				  hoursrating: 0,
-          username: '',
-          className: ''
+    this.state = {	comment: '',
+				  	qualityrating: 0,
+				  	difficultyrating: 0,
+				  	hoursrating: 0,
+          			username: '',
+          			className: ''
 				 };
 	this.handleQualityChange = this.handleQualityChange.bind(this);
 	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
@@ -57,8 +57,10 @@ class Review extends Component {
 	sendReview(event) {
     	event.preventDefault();
 		this.setState({comment: event.target.value});
-		if(window.confirm('Submit Review?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
+		if(window.confirm('Submit Review for ' + this.state.className + '?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
 			axios.post('http://localhost:3000/api/review/', {
+			username: this.state.username,
+			class: this.state.className,
 			quality: this.state.qualityrating,
 			difficulty: this.state.difficultyrating,
 			hours: this.state.hoursrating,

@@ -16,7 +16,8 @@ class Home extends Component {
     super(props);
     this.state = {
         value: '',
-        username: ''
+        username:  '',
+        divItems : []
     };
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -37,11 +38,23 @@ class Home extends Component {
 
 	submit(event){
     event.preventDefault();
-		this.props.history.push({
-        pathname: `/class/${this.state.value}`,
-        state: {className: this.state.value, user: this.state.username}
-    });
+    const prefixAndPostfix = this.state.value.split(/(\d+)/);
+    var self = this;
+    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1] + ',' + '"major" :"' + prefixAndPostfix[0] + '"}')
+      .then(function (response) {
+        self.goToClass(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 	}
+
+  goToClass(classObj){
+    this.props.history.push({
+      pathname: `/class/${this.state.value}`,
+      state: { classObje : classObj, className: this.state.value, user: this.state.username}
+    });
+  }
 
   render() {
     console.log('username:', this.state.username);

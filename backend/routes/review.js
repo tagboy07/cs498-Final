@@ -4,7 +4,7 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
 	var reviewData = {
-		netid: req.body.netid,
+		username: req.body.username,
 		class: req.body.class,
 		quality: req.body.quality,
 		difficulty: req.body.difficulty,
@@ -13,7 +13,7 @@ router.post('/', function(req, res) {
 		anon: req.body.anon,
 		dateCreated: req.body.dateCreated,
 	}
-	console.log("here");
+
 	ReviewSchema.create(reviewData, function(err, review) {
 		if(err) {
 			res.status(500).send({
@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res){
+
     ReviewSchema.findById(req.params.id, function(err, review){
       if(err) {
 			res.status(500).send({
@@ -52,6 +53,24 @@ router.get('/:id', function(req, res){
 		}
     });
   });
+
+router.get('/', function(req, res) {
+	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
+	
+	ReviewSchema.find(whereQ, function(err, review) {
+		if(err) {
+			res.status(500).send({
+				message: err,
+				data: []
+			});
+		} else {
+			res.status(200).send({
+				message: 'OK',
+				data: review
+			});
+		}
+	})
+});
 
 router.delete('/:id', function(req, res){
 	ReviewSchema.findByIdAndRemove(req.params.id, function(err, review){
@@ -79,7 +98,7 @@ router.delete('/:id', function(req, res){
 
 router.put('/:id', function(req, res) {
 	var reviewData = {
-		netid: req.body.netid,
+		username: req.body.username,
 		class: req.body.class,
 		quality: req.body.quality,
 		difficulty: req.body.difficulty,
