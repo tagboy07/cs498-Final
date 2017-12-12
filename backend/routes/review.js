@@ -1,6 +1,7 @@
 var express = require('express'),
   router = express.Router(),
-  ReviewSchema = require('../models/review');
+  ReviewSchema = require('../models/review'),
+  ClassSchema = require('../models/class');
 
 router.post('/', function(req, res) {
 	var reviewData = {
@@ -13,7 +14,7 @@ router.post('/', function(req, res) {
 		anon: req.body.anon,
 		dateCreated: req.body.dateCreated,
 	}
-
+  console.log(req.body.class)
 	ReviewSchema.create(reviewData, function(err, review) {
 		if(err) {
 			res.status(500).send({
@@ -56,7 +57,7 @@ router.get('/:id', function(req, res){
 
 router.get('/', function(req, res) {
 	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
-	
+
 	ReviewSchema.find(whereQ, function(err, review) {
 		if(err) {
 			res.status(500).send({

@@ -5,8 +5,8 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
 	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
-	
-	ClassSchema.find(whereQ, function(err, Class) {
+
+	ClassSchema.find(whereQ, function(err, classInfo) {
 		if(err) {
 			res.status(500).send({
 				message: err,
@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 		} else {
 			res.status(200).send({
 				message: 'OK',
-				data: Class
+				data: classInfo
 			});
 		}
 	})
