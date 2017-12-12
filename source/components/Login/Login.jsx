@@ -10,63 +10,69 @@ import axios from 'axios'
 class Login extends Component {
 	constructor(props) {
 		super(props);
+		
 		this.state = {
-		      username: '',
-		      password: ''
+			username: '',
+			password: '',
+			error: ''
 		};
+		
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.login = this.login.bind(this);
-  	}
+		this.login = this.login.bind(this);
+  }
 
-  	handleUsernameChange(event) {
-    	this.setState({username: event.target.value});
-    }
+	handleUsernameChange(event) {
+		this.setState({username: event.target.value});
+	}
 
-    handlePasswordChange(event) {
-    	this.setState({password: event.target.value});
-    }
+	handlePasswordChange(event) {
+		this.setState({password: event.target.value});
+	}
 
 
-    login(event) {
-    	event.preventDefault();
+	login(event) {
+		event.preventDefault();
+		let th = this;
 
-        let th = this;
+		axios.post('http://localhost:3000/api/account/login', {
+			username: this.state.username,
+			password: this.state.password
+		})
+		.then(function (response) {
+			console.log(response);
+			//TODO: Handle Right Password
+			th.props.history.push({
+				pathname: '/',
+				state: {user: response.data}
+			});
+		})
+		.catch(function (error) {
+			console.log(error);
+			th.setState({error: "The username or password is incorrect."});
+		});
 
-      axios.post('http://localhost:3000/api/account/login', {
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(function (response) {
-        console.log(response);
-        //TODO: Handle Right Password
-				th.props.history.push({
-					pathname: '/',
-					state: {user: response.data}
-				});
-      })
-      .catch(function (error) {
-        console.log(error);
-        //TODO: Handle Wrong Password
-      });
+	}
+	render() {
+		return(
+			<div className="Login">
+				<form role='form'>
+					<h1>SANITY CHECK</h1>
 
-  	}
-    render() {
-        return(
-            <div className="Login">
-            <form role='form'>
-			        <div className='form-group'>
-			          <input type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
-			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
-			        </div>
-			        <button type='submit' onClick={this.login.bind(this)}>Submit</button>
-			      </form>
-            <div>
-                <Link to={"/register"}>Register</Link>
-            </div>
-            </div>
-        )
-    }
+					<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
+					<span className="underline"></span>
+
+					<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
+					<span className="underline"></span>
+
+					<Link to={"/register"}>Register</Link>
+					<button type='submit' onClick={this.login.bind(this)}>LOGIN</button>
+
+					<p className="error">{this.state.error}</p>
+				</form>
+			</div>
+		)
+	}
 }
 
 export default Login

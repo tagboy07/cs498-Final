@@ -7,65 +7,82 @@ import axios from 'axios'
 class Register extends Component {
 	constructor(props) {
 		super(props);
+		
 		this.state = {
-		      username: '',
-		      password: '',
-          repeatPassword: ''
+			username: '',
+			password: '',
+			repeatPassword: '',
+			error: ''
 		};
+		
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleRepeatPasswordChange = this.handleRepeatPasswordChange.bind(this);
-  	}
+  }
 
-    handleRepeatPasswordChange(event) {
-      this.setState({repeatPassword: event.target.value});
-    }
-  	handleUsernameChange(event) {
-    	this.setState({username: event.target.value});
-    }
+	handleRepeatPasswordChange(event) {
+		this.setState({repeatPassword: event.target.value});
+	}
+	handleUsernameChange(event) {
+		this.setState({username: event.target.value});
+	}
 
-    handlePasswordChange(event) {
-    	this.setState({password: event.target.value});
-    }
+	handlePasswordChange(event) {
+		this.setState({password: event.target.value});
+	}
 
 
-    login(event) {
-    	event.preventDefault();
+	login(event) {
+		event.preventDefault();
+		let th = this;
+		
+		if(this.state.password != this.state.repeatPassword){
+			this.setState({error: "The passwords do not match."});
+			return;
+		}
+		
+		axios.post('http://localhost:3000/api/account/register', {
+			username: this.state.username,
+			password: this.state.password
+		})
+		.then(function (response) {
+			console.log(response);
+			
+			th.props.history.push({
+				pathname: '/',
+				state: {user: response.data}
+			})
+		})
+		.catch(function (error) {
+			console.log(error);
+			th.setState({error: "That username is already taken."});
+		});
 
-        let th = this;
+	}
+	
+	render() {
+		return(
+			<div className="Login">
+				<form role='form'>
+					<h1>SANITY CHECK</h1>
 
-      axios.post('http://localhost:3000/api/account/register', {
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(function (response) {
-        console.log(response);
-        //TODO: Handle Right Password
-          // th.props.history.push({
-					// 	pathname: '/',
-					// 	state: {user: response.data}
-					// })
-      })
-      .catch(function (error) {
-        console.log(error);
-        //TODO: Handle Wrong Password
-      });
+					<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
+					<span className="underline"></span>
 
-  	}
-    render() {
-        return(
-            <div className="Login">
-                   <form role='form'>
-			        <div className='form-group'>
-			          <input type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
-			          <input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
-                <input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Repeat Password' />
-			        </div>
-			        <button type='submit' onClick={this.login.bind(this)}>Create Account!</button>
-			      </form>
-            </div>
-        )
-    }
+					<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
+					<span className="underline"></span>
+
+					<input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Confirm Password' />
+					<span className="underline"></span>
+
+					<Link to="/login">Login</Link>
+					<button type='submit' onClick={this.login.bind(this)}>REGISTER</button>
+					
+					<p className="error">{this.state.error}</p>
+				</form>
+			</div>
+		)
+	}
 }
 
 export default Register

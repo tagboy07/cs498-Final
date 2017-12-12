@@ -21,7 +21,7 @@ class Header extends Component {
 				<div className="trap">
 					<div className="links">
 						<ul>
-                            <Link to={"/"}>Sanity Check</Link>
+							<Link to={"/"}>Home</Link>
 							<span className="divider">|</span>
 							<Link to={"/login"}>Profile</Link>
 							<span className="divider">|</span>

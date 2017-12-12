@@ -1,8 +1,111 @@
-.Login {
-    color: skyblue;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+$green: #1ECD97;
+
+.Login{
+	height: 100%;
 }
+
+.Login h1{
+	width: 100%;
+	margin: 0 !important;
+	text-align: center;
+	font-size: 64px;
+	color: white;
+}
+
+.Login form{
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+}
+
+.Login input{
+  width: 350px;
+	margin-top: 16px;
+	display: block;
+  position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  font-size: 18px;
+		
+	&:focus {
+    outline: none;    
+  }
+}
+
+.Login input::placeholder{
+	color: rgba(255, 255, 255, 0.95);
+}
+
+.Login .username{
+	margin-top: 50px;
+}
+
+.Login button{
+  width: 130px;
+	height: 40px;
+	margin: 16px 0;
+	display: block;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0);
+  border: 2px solid $green;
+	border-radius: 20px;
+  color: $green;
+  cursor: pointer;
+  transition: all 0.25s ease;
+	
+  &:hover {
+    color: white;
+    background: $green;
+  }
+	
+	&:focus{
+		outline: none;
+	}
+	
+	&:active{
+		border-color: rgba(30, 205, 151, 0.375);
+		background-color: rgba(30, 205, 151, 0.75);
+		color: rgba(255, 255, 255, .75);
+		outline: none;
+	}
+}
+
+.Login a{
+	position: absolute;
+	right: 54px;
+}
+
+input:focus+.underline {
+  transform: scale(1);
+}
+
+.Login .underline {
+  width: 350px;
+  height: 2px;
+  display: inline-block;
+  background-color: $green;
+	position: relative;
+	top: -15px;
+  -webkit-transform: scale(0, 1);
+  transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.Login .error{
+	color: red;
+}
+
+//Get's rid of ellipses when text field is focused
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
+input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
