@@ -40,7 +40,7 @@ class Home extends Component {
     event.preventDefault();
     const prefixAndPostfix = this.state.value.split(/(\d+)/);
     var self = this;
-    axios.get('http://localhost:3000/api/class?where={"number":' + prefixAndPostfix[1] + ',' + '"major" :"' + prefixAndPostfix[0] + '"}')
+    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1] + ',' + '"major" :"' + prefixAndPostfix[0] + '"}')
       .then(function (response) {
         self.goToClass(response.data);
       })

@@ -24,7 +24,7 @@ class Class extends Component {
   getReviews(classObj){
     var self = this;
     console.log(classObj._id);
-    axios.get('http://localhost:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
+    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
       .then(function (response) {
         self.addDivs(response.data.data);
     })
