@@ -22,8 +22,8 @@ class Review extends Component {
 				  	qualityrating: 0,
 				  	difficultyrating: 0,
 				  	hoursrating: 0,
-          			username: '',
-          			className: ''
+          	username: '',
+          	className: ''
 				 };
 	this.handleQualityChange = this.handleQualityChange.bind(this);
 	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
@@ -57,6 +57,7 @@ class Review extends Component {
 	sendReview(event) {
     	event.preventDefault();
 		this.setState({comment: event.target.value});
+    console.log(this.state.className)
     const classNum = Number(this.state.className.match(/\d+/g)[0]);
     const className = this.state.className.replace(/[0-9]/g, '');
     console.log(this.state.username.user, this.state.className,this.state.qualityrating, this.state.difficultyrating, this.state.hoursrating, this.state.comment)

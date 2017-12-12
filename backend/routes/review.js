@@ -1,8 +1,9 @@
 var express = require('express'),
   router = express.Router(),
   ReviewSchema = require('../models/review'),
-  ClassSchema = require('../models/class');
-  StudentSchema = require('../models/student');
+  ClassSchema = require('../models/class'),
+  StudentSchema = require('../models/student'),
+  ObjectId = require('mongodb').ObjectID;
 
 router.post('/', function(req, res) {
 	var classSearch = {
@@ -20,26 +21,40 @@ router.post('/', function(req, res) {
 		anon: req.body.anon,
 		dateCreated: req.body.dateCreated,
 	}
-  	var createdReview = ReviewSchema.insert(reviewData)
-  	var updatedArray = theClass.reviews.push(createdReview._id)
-
-  	StudentSchema.findOneAndUpdate({username: req.body.username},  { $push: { reviews: createdReview._id }})
-	ClassSchema.findOneAndUpdate(classSearch, {reviews: updatedArray}, {new:true} , function(err, Class){
-		if(err){
-				res.status(500).send({
-				messages: err,
+  var createdReview = ReviewSchema.create(reviewData, function(err, review) {
+    if(err) {
+			res.status(500).send({
+				message: err,
 				data: []
 			});
-
 		} else {
-				res.status(200).send({
-				message: "OK",
-				data: createdReview
-			});	
-		}
-	})
-
-
+      console.log(review)
+      const id = ObjectId(review._id)
+      StudentSchema.findOneAndUpdate({username: req.body.username},  { $push: { reviews: id }}, function(err, student) {
+        if(err) {
+    			res.status(500).send({
+    				message: err,
+    				data: []
+    			});
+    		}
+        else {
+          ClassSchema.findOneAndUpdate(classSearch, {$push: {reviews: id }}, function(err, classobj){
+        		if(err){
+        				res.status(500).send({
+        				messages: err,
+        				data: []
+        			});
+        		} else {
+        				res.status(200).send({
+        				message: "OK",
+        				data: review
+        			});
+        		}
+        	});
+        }
+      });
+    }
+  });
 });
 
 router.get('/:id', function(req, res){
