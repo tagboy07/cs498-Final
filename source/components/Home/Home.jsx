@@ -45,10 +45,10 @@ class Home extends Component {
         if(response.data.data.length >= 1 ){
           self.goToClass(response.data);
         }
-				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like: 'CS225'"});
+				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like 'CS225'"});
       })
       .catch(function (error) {
-				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like: 'CS225'"});
+				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like 'CS225'"});
       });
 	}
 

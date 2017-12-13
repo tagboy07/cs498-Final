@@ -87,7 +87,7 @@ class Review extends Component {
 		  .catch(function (error) {
 			console.log(error);
 		  });
-		window.history.back();
+			window.history.back();
 		}
 
   	}
@@ -111,8 +111,7 @@ class Review extends Component {
 						<ReactStars className = "stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
 
 						<h1>Hours</h1>
-						<ReactStars className = "stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
-
+						<input value={this.state.hoursrating} onChange={this.handleHoursChange} />
 						<h1>Comment</h1>
 						<form className="Comment" onSubmit={this.handleSubmit}>
 								<textarea value={this.state.comment} onChange={this.handleChange}></textarea>

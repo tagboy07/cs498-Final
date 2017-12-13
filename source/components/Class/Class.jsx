@@ -41,9 +41,9 @@ class Class extends Component {
 				tempDifficulty += reviews[i].difficulty;
 				tempHours += reviews[i].hours;
 			}
-			self.setState({quality : tempQuality/reviews.length}, () => {
-				self.setState({difficulty: tempDifficulty/reviews.length}, () => {
-					self.setState({hours: tempHours/reviews.length}, () => {
+			self.setState({quality : parseFloat((tempQuality/reviews.length).toFixed(2))}, () => {
+				self.setState({difficulty: parseFloat((tempDifficulty/reviews.length).toFixed(2))}, () => {
+					self.setState({hours: parseFloat((tempHours/reviews.length).toFixed(2))}, () => {
 						self.setState({reviewObjs: reviews}, () => {
 							console.log("got reviews they are", self.state.reviewObjs)
 						});

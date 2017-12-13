@@ -116,11 +116,6 @@ getReviews(user){
 					
 					<br></br>
 					
-					<h1 className="classes">Classes:</h1>{this.state.classDivs}
-					<a className="edit" onClick={this.edit}>Edit</a>
-					
-					<br></br>
-					
 					<h1>Reviews:</h1>
 					
 					
