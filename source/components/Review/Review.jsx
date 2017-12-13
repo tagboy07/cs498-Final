@@ -89,6 +89,7 @@ class Review extends Component {
     return (
     	<div>
     	      <Header></Header>
+		
       	<div className="Review">
 			<div className="wrapper">
 				<div className="titles">
@@ -107,6 +108,8 @@ class Review extends Component {
 							<h3>Comment: </h3>
 							<input className = "textbox" type="text" value={this.state.comment} onChange={this.handleChange}/>
 						</label>
+					</form>
+					<form className = "boxform">
 						<input className = "subbutton" type="submit" value="Submit" onClick={this.sendReview.bind(this)}/>
 					</form>
 				</div>

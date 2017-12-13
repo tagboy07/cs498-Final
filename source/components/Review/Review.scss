@@ -5,10 +5,10 @@
 }
 .Review .wrapper{
 	width: 50%;
-	position: absolute;
-	top: 40%;
+	position: fixed;
+	top: 20%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
 }
 .Review .titles{
 	text-align: center;
@@ -24,16 +24,16 @@
 .Review .titles h3{
 	margin: 0 0 4px 0;
 }
-.Rating{
+.Review .Rating{
 	position: relative;
 }
-.Before{
+.Review .Before{
 	position: relative;
 }
-.Comment{
+.Review .Comment{
 	position: relative;
 }
-.Stars{
+.Review .Stars{
 	position: relative;
 //	margin: auto;
 	left: 50%;
@@ -43,22 +43,27 @@
 	color: white;
 	text-align: center;
 }
-.Comment{
+.Review .Comment{
 //	text-align: center;
 //	left: 50%;
 //	transform: translateX(-25%);
 //	width: 50%;
 //	position: relative;
 }
-.textbox{
+.Review .textbox{
 	height: 50px;
 	width: 200px;
-	left: 50%;
 	position: relative;
+	left: 50%;
 	transform: translateX(-50%);
 }
-.subbutton{
+.boxform{
 	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.Review .subbutton{
+	position: absolute;
 	bottom: 0px;
 }
 .Classheader{
