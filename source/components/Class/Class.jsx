@@ -61,11 +61,27 @@ class Class extends Component {
 
 	submit(event) {
     event.preventDefault();
-		console.log("Submitting the class", this.state.className, this.state.username)
-		this.props.history.push({
-        pathname: `/review`,
-        state: {className: this.state.className, user: this.state.username}
-    });
+//		Api call to check if user already submitted a review for this class
+		let theuser = this.state.username.user;
+		console.log(theuser);
+		let theclass = this.state.classObject._id;
+		axios.get('http://localhost:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
+		.then(function (response) {
+    		console.log(response);
+			if(response.data.data.length == 0){
+				console.log("Submitting the class", this.state.className, this.state.username)
+				this.props.history.push({
+				pathname: `/review`,
+				state: {className: this.state.className, user: this.state.username}
+					});
+			}
+			else{
+				alert("You already submitted a review for this class.");
+			}
+		})
+		.catch(function (error) {
+    		console.log(error);
+  		});
 	}
 	
 	render() {
