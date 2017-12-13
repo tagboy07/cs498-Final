@@ -1,4 +1,5 @@
 $blue: #13294b;
+$green: #1ECD97;
 
 .Class{
 	width: 100%;
@@ -9,12 +10,13 @@ $blue: #13294b;
 .Class .wrapper{
 	width: 50%;
 	position: absolute;
-	top: 40%;
+	top: 20%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
 }
 
 .Class .titles{
+	position: relative;
 	text-align: center;
 	color: white;
 	border-bottom: solid 2px white;
@@ -27,6 +29,36 @@ $blue: #13294b;
 
 .Class .titles h3{
 	margin: 0 0 4px 0;
+}
+
+.Class .titles button{
+	width: 130px;
+	height: 40px;
+	position: absolute;
+	bottom: 8px;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0);
+  border: 2px solid $green;
+	border-radius: 20px;
+  color: $green;
+  cursor: pointer;
+  transition: all 0.25s ease;
+	
+  &:hover {
+    color: white;
+    background: $green;
+  }
+	
+	&:focus{
+		outline: none;
+	}
+	
+	&:active{
+		border-color: rgba(30, 205, 151, 0.375);
+		background-color: rgba(30, 205, 151, 0.75);
+		color: rgba(255, 255, 255, .75);
+		outline: none;
+	}
 }
 
 .Class .ratings{
@@ -42,6 +74,20 @@ $blue: #13294b;
 }
 
 .Class .reviews .review .reviewRatings{
-	width: 100%;
+	width: 100px;
+	display: inline-block;
+	vertical-align: top;
 	text-align: center;
+	background-color: #1ECD97;
+	color: white;
+}
+
+.Class .reviews .review .reviewRatings tr > td:nth-child(1){
+	text-align: left;
+}
+
+.Class .reviews .review .comment{
+	margin: 8px 0 0 8px;
+	display: inline-block;
+	vertical-align: top;
 }
