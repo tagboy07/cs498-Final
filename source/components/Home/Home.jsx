@@ -36,15 +36,14 @@ class Home extends Component {
 	submit(event){
     event.preventDefault();
     const prefixAndPostfix = this.state.value.split(/(\d+)/);
-    console.log(prefixAndPostfix)
     var self = this;
     axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1].trim() + ',' + '"major" :"' + prefixAndPostfix[0].trim() + '"}')
       .then(function (response) {
-        console.log(response.data)
-        self.goToClass(response.data);
+        if(response.data.data.length >= 1 ){
+          self.goToClass(response.data);
+        }
       })
       .catch(function (error) {
-        console.log(error);
       });
 	}
 
