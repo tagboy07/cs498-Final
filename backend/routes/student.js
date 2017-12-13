@@ -97,14 +97,9 @@ router.get('/:user/classes', function(req, res) {
     			data: []
     		});
     	}
-    	else{
+    	else {
     		var retArray = [];
-    		for(var i=0; i < student.classes.length; i++){
-    		ClassSchema.find({
-    			'_id': { $in: [
-    				student.classes[i]
-    				]}
-    		}, function(err, classI) {
+    		ClassSchema.find({'_id': { $in: student.classes}}, function(err, classObj) {
     			if(err) {
     				res.status(500).send({
     				message: err,
@@ -112,18 +107,12 @@ router.get('/:user/classes', function(req, res) {
     				});
     			}
     			else {
-    				console.log(classI);
-    				retArray.push(classI);
-    				
+            res.status(200).send({
+          	   message: 'OK',
+          		 data: classObj
+          	});
     			}
-    		});
-    	}
-    	// console.log(retArray);
-    	res.status(200).send({
-    					message: 'OK',
-    					data: retArray
-    				});
-
+        });
     	}
     });
 
