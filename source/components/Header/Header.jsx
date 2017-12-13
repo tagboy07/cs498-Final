@@ -16,6 +16,7 @@ class Header extends Component {
     };
   }
   componentWillReceiveProps(newProps){
+    
     this.setState({
       dummyString: 'lol'
     })
