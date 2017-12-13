@@ -177,7 +177,7 @@ class Class extends Component {
 			return
 		}
 		const revId = this.state.revToggle[0]._id;
-		const queryStr = 'http://localhost:3000/api/review/' + revId
+		const queryStr = 'http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review/' + revId
 		let th = this
 		axios.delete(queryStr)
 		.then(() => {
