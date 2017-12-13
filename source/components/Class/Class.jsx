@@ -61,7 +61,7 @@ class Class extends Component {
     if(user) {
       this.setState({
         username: user,
-				className: curClass
+		className: curClass
       })
     }
   }
@@ -80,7 +80,7 @@ class Class extends Component {
 				console.log("Submitting the class", th.state.className, th.state.username)
 				th.props.history.push({
 				pathname: `/review`,
-				state: {className: th.state.className, user: th.state.username}
+				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
 					});
 			}
 			else{
