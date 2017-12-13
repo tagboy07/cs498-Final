@@ -44,8 +44,8 @@ class Login extends Component {
 			//TODO: Handle Right Password
 			th.props.history.push({
 				pathname: '/',
-				state: {user: response.data}
 			});
+			localStorage.setItem('username', response.data.user)
 		})
 		.catch(function (error) {
 			console.log(error);

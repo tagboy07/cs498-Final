@@ -14,12 +14,14 @@ class Class extends Component {
 			classObject : this.props.location.state.classObje.data[0],
 			reviewDivs: [],
 			username: '',
-			className: ''
+			className: '',
+      quality: '',
+      difficulty: '',
+      hours: ''
 		};
 		this.getReviews = this.getReviews.bind(this);
 		this.getReviews(this.state.classObject);
   }
-
 
   getReviews(classObj){
     var self = this;
@@ -36,8 +38,13 @@ class Class extends Component {
   addDivs(reviews){
     console.log(reviews);
     let items = [];
+    var tempQuality = 0;
+    var tempDifficulty = 0;
+    var tempHours = 0;
     for(var i=0; i < reviews.length; i++){
-    	console.log(reviews[i].quality);
+    	tempQuality += reviews[i].quality;
+      tempDifficulty += reviews[i].difficulty;
+      tempHours += reviews[i].hours;
       items.push(
         <div className="review" key={i}>
 					<table className="reviewRatings">
@@ -60,25 +67,33 @@ class Class extends Component {
         </div>
       )
     }
+    this.setState({quality : tempQuality/reviews.length});
+    this.setState({difficulty: tempDifficulty/reviews.length});
+    this.setState({hours: tempHours/reviews.length});
     this.setState({reviewDivs: items});
    }
 
    	componentWillMount() {
-    const user = ((this.props.location || {}).state || {}).user
 		const curClass = ((this.props.location || {}).state || {}).className
-		console.log(user, curClass)
-    if(user) {
+    if(curClass) {
       this.setState({
-        username: user,
-		className: curClass
+		  className: curClass
       })
+    }
+    if(localStorage.getItem('username') != null) {
+      this.setState({username:localStorage.getItem('username') })
     }
   }
 
 	submit(event) {
     	event.preventDefault();
 //		Api call to check if user already submitted a review for this class
-		let theuser = this.state.username.user;
+    if(this.state.username ==''){
+      this.props.history.push({
+        pathname: `/login`})
+      return
+    }
+		let theuser = this.state.username;
 		console.log(theuser);
 		let theclass = this.state.classObject._id;
 		let th = this;
@@ -104,7 +119,7 @@ class Class extends Component {
 	render() {
 		return(
       <div>
-      <Header></Header>
+      <Header />
 			<div className="Class">
 				<div className="wrapper">
 
@@ -117,9 +132,9 @@ class Class extends Component {
 					<table className="ratings">
 						<tbody>
 							<tr>
-								<td>Quality: {this.state.classObject.quality}</td>
-								<td>Difficulty: {this.state.classObject.difficulty}</td>
-								<td>Hours: {this.state.classObject.hours}</td>
+								<td>Quality: {this.state.quality}</td>
+								<td>Difficulty: {this.state.difficulty}</td>
+								<td>Hours: {this.state.hours}</td>
 							</tr>
 						</tbody>
 					</table>

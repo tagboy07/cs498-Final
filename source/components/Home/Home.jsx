@@ -24,11 +24,8 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    const user = ((this.props.location || {}).state || {}).user
-    if(user) {
-      this.setState({
-        username: user
-      })
+    if(localStorage.getItem('username') != null) {
+      this.setState({username:localStorage.getItem('username') })
     }
   }
 
@@ -52,15 +49,15 @@ class Home extends Component {
   goToClass(classObj){
     this.props.history.push({
       pathname: `/class/${this.state.value}`,
-      state: { classObje : classObj, className: this.state.value, user: this.state.username}
+      state: { classObje : classObj, className: this.state.value}
     });
   }
 
   render() {
-    //console.log('username:', this.state.username);
+    console.log("here")
     return (
       <div className="fullBody">
-            <Header></Header>
+            <Header fake={"Test"}/>
       <div className="Home">
         <div className="transparentBlue"></div>
         <h1>SANITY CHECK</h1>

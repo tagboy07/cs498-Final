@@ -14,19 +14,11 @@ import Login from '../Login/Login.jsx';
 import Header from '../Header/Header.jsx';
 import Register from '../Register/Register.jsx';
 import Review from '../Review/Review.jsx';
+import Profile from '../Profile/Profile.jsx';
 
 
 class App extends Component {
 
-	constructor(props){
-	    super();
-	    this.state={ username: '' };  
-	    this.handleUsername = this.handleUsername.bind(this);
- 	}
-
-    handleUsername(username){
-        this.setState({username: username});
-    }
 
 	render(){
 		return( 
@@ -38,6 +30,7 @@ class App extends Component {
 			        <Route path="/header" component={Header} />
 			        <Route path="/class/:id" component={Class} />
 			        <Route path="/review/" component={Review} />
+			        <Route path="/profile/:id" component={Profile} />
 			      </div>
 			    </Router>
 	    	)
