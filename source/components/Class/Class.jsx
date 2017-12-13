@@ -219,25 +219,23 @@ class Class extends Component {
 				<div className="wrapper">
 
 					<div className="titles">
-						<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
-						<h3>{this.state.classObject.title}</h3>
-						<button onClick={this.submit} type="button">Write Review</button> 
-					</div>
+							<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
+							<h3>{this.state.classObject.title}</h3>
+							{this.renderButton()}
+						</div>
 
-					<table className="ratings">
-						<tbody>
-							<tr>
-								<td>Quality: {this.state.quality}</td>
-								<td>Difficulty: {this.state.difficulty}</td>
-								<td>Hours: {this.state.hours}/week</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<div className="reviews">
-						{this.state.reviewDivs}
-					</div>
+						<table className="ratings">
+							<tbody>
+								<tr>
+									<td>Quality: {this.state.quality}</td>
+									<td>Difficulty: {this.state.difficulty}</td>
+									<td>Hours: {this.state.hours}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div className="reviews">
+							{this.renderReviews(this.state.reviewObjs)}
+						</div>
 
 				</div>
 			</div>
