@@ -32,6 +32,7 @@ class Review extends Component {
 	this.handleHoursChange = this.handleHoursChange.bind(this);
 	this.handleChange = this.handleChange.bind(this);
   this.sendReview = this.sendReview.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -61,6 +62,9 @@ class Review extends Component {
 	handleChange(e){
 		this.setState({comment: e.target.value});
 	}
+  handleSubmit(e) {
+    e.preventDefault();
+  }
 	sendReview(event) {
     	event.preventDefault();
 		this.setState({comment: event.target.value});
@@ -69,7 +73,7 @@ class Review extends Component {
     const className = this.state.className.replace(/[0-9]/g, '');
     console.log(this.state.username, this.state.className,this.state.qualityrating, this.state.difficultyrating, this.state.hoursrating, this.state.comment)
 		if(window.confirm('User' + this.state.username + 'Submit Review for ' + this.state.className + '?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
-			axios.post('http://localhost:3000/api/review/', {
+			axios.post('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review/', {
 			username: this.state.username,
 			class: {classNum, className},
 			quality: this.state.qualityrating,
