@@ -25,6 +25,7 @@ getReviews(user){
     var self = this;
     axios.get(baseURL + '/api/review?where={"username":' + '"' + this.state.username + '"}')
       .then(function (response) {
+				console.log(response)
         self.addDivs(response.data.data);
     })
     .catch(function (error) {
@@ -56,15 +57,22 @@ getReviews(user){
     }
     this.setState({classDivs: items});
   }
-  
+
 
   addDivs(reviews){
     let items = [];
     for(var i=0; i < reviews.length; i++){
     	console.log(reviews[i].quality);
       items.push(
-        <div className="rev" key={i}>
-          <p> comment: {reviews[i].comment} quality: {reviews[i].quality} difficulty: {reviews[i].difficulty} hours: {reviews[i].hours}</p>
+				<div className="review" key={i}>
+					<table className="reviewRatings">
+						<tr>
+							<td>Quality: {reviews[i].quality}</td>
+							<td>Difficulty: {reviews[i].difficulty}</td>
+							<td>Hours: {reviews[i].hours}</td>
+						</tr>
+					</table>
+          <p> comment: {reviews[i].comment}</p>
         </div>
       )
     }
@@ -73,10 +81,12 @@ getReviews(user){
 
 	render() {
 		return(
-			<div className="Profile">
-				<div className="reviewss">
- 					{this.state.reviewDivs}
- 				</div>
+			<div className="Class">
+				<div className="wrapper">
+					<div className="reviews">
+	 					{this.state.reviewDivs}
+	 				</div>
+				</div>
  				<div className="classes">
  					{this.state.classDivs}
  				</div>

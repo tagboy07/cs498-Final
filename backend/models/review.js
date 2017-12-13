@@ -5,7 +5,8 @@ var studentSchema = new mongoose.Schema({
     username: String,
     class: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "class"
+        ref: "class",
+        required: true
     },
     quality: Number,
     difficulty: Number,
