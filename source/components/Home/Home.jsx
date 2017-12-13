@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Container, Divider, Grid, Input } from 'semantic-ui-react'
 import Header from '../Header/Header.jsx';
 import styles from './Home.scss'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Home extends Component {
 
