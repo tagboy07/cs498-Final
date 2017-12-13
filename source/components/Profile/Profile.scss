@@ -1,6 +1,53 @@
-.Class{
+$blue: #13294b;
+$green: #1ECD97;
+
+.Profile{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.Profile .wrapper{
+	width: 50%;
 	position: absolute;
-	top: 50%;
+	top: 20%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
+}
+
+.Profile h1{
+	color: white;
+}
+
+.Profile .classes{
+	display: inline-block;
+}
+
+.Profile .edit{
+	display: inline-block;
+	cursor: pointer;
+}
+
+.Profile .review{
+	width: 80%;
+	background-color: white;
+	margin: 32px auto;
+}
+
+.Profile .reviewRatings{
+	width: 100px;
+	display: table-cell;
+	text-align: center;
+	background-color: $green;
+	color: white;
+	border-right: solid 3px $blue;
+}
+
+.Profile .reviewRatings tr > td:nth-child(1){
+	text-align: left;
+}
+
+.Profile .review .comment{
+	padding-left: 8px;
+	display: table-cell;
 }

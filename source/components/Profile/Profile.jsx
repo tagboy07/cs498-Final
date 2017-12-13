@@ -46,6 +46,7 @@ getReviews(user){
   	.then(function (response) {
         // console.log(response);
 						self.setState({ classes : response.data.data});
+				
             // console.log(response.data.data);
         self.addClassesDivs(response.data.data);
     })
@@ -77,30 +78,48 @@ getReviews(user){
 					<table className="reviewRatings">
 						<tbody>
 							<tr>
-								<td>Quality: {reviews[i].quality}</td>
-								<td>Difficulty: {reviews[i].difficulty}</td>
-								<td>Hours: {reviews[i].hours}</td>
+								<td>Quality:</td>
+								<td>{reviews[i].quality}</td>
+							</tr>
+							<tr>
+								<td>Difficulty:</td>
+								<td>{reviews[i].difficulty}</td>
+							</tr>
+							<tr>
+								<td>Hours:</td>
+								<td>{reviews[i].hours}</td>
 							</tr>
 						</tbody>
 					</table>
-          <p> comment: {reviews[i].comment}</p>
+					<p className="comment">{reviews[i].comment}</p>
         </div>
       )
     }
     this.setState({reviewDivs: items});
    }
 
+	edit(){
+		console.log("edit classes");
+	}
+	
 	render() {
 		return(
-			<div className="Class">
+			<div className="Profile">
 				<div className="wrapper">
+					
+					<h1>Username: {this.state.username}</h1>
+					
+					<h1 className="classes">Classes:</h1>{this.state.classes}
+					<a className="edit" onClick={this.edit}>Edit</a>
+					
+					<h1>Reviews:</h1>
+					
+					
 					<div className="reviews">
 	 					{this.state.reviewDivs}
 	 				</div>
+					
 				</div>
- 				<div className="classes">
- 					{this.state.classDivs}
- 				</div>
 			</div>
 		)
 	}
