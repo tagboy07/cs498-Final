@@ -18,16 +18,22 @@ import Review from '../Review/Review.jsx';
 
 class App extends Component {
 
+	constructor(props){
+	    super();
+	    this.state={ username: '' };  
+	    this.handleUsername = this.handleUsername.bind(this);
+ 	}
+
+    handleUsername(username){
+        this.setState({username: username});
+    }
 
 	render(){
-
 		return( 
 				<Router>
 			      <div className="wrapper">
-			        <Header></Header>
-
-			        <Route exact path="/" component={Home} />
-			        <Route path="/login" component={Login} />
+			        <Route exact path="/" component={Home}/>
+			        <Route path="/login/" component={Login} />
 			        <Route path="/register" component={Register} />
 			        <Route path="/header" component={Header} />
 			        <Route path="/class/:id" component={Class} />
@@ -35,7 +41,6 @@ class App extends Component {
 			      </div>
 			    </Router>
 	    	)
-
 	}
 
 }

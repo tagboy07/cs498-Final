@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Form, Grid, Image, Message, Segment } from 'semantic-ui-react'
 import axios from 'axios'
-
+import Header from '../Header/Header.jsx';
 class Register extends Component {
 	constructor(props) {
 		super(props);
@@ -62,24 +62,27 @@ class Register extends Component {
 	
 	render() {
 		return(
-			<div className="Login">
-				<form role='form'>
-					<h1>SANITY CHECK</h1>
+			<div>     
+				<Header></Header>
+				<div className="Login">
+					<form role='form'>
+						<h1>SANITY CHECK</h1>
 
-					<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
-					<span className="underline"></span>
+						<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
+						<span className="underline"></span>
 
-					<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
-					<span className="underline"></span>
+						<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
+						<span className="underline"></span>
 
-					<input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Confirm Password' />
-					<span className="underline"></span>
+						<input type='password' value={this.state.repeatPassword}  onChange={this.handleRepeatPasswordChange} placeholder='Confirm Password' />
+						<span className="underline"></span>
 
-					<Link to="/login">Login</Link>
-					<button type='submit' onClick={this.login.bind(this)}>REGISTER</button>
-					
-					<p className="error">{this.state.error}</p>
-				</form>
+						<Link to="/login">Login</Link>
+						<button type='submit' onClick={this.login.bind(this)}>REGISTER</button>
+						
+						<p className="error">{this.state.error}</p>
+					</form>
+				</div>
 			</div>
 		)
 	}
