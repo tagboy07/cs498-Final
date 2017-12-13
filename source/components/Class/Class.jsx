@@ -40,14 +40,23 @@ class Class extends Component {
     	console.log(reviews[i].quality);
       items.push(
         <div className="review" key={i}>
-					<table className="reviewRatings">
-						<tr>
-							<td>Quality: {reviews[i].quality}</td>
-							<td>Difficulty: {reviews[i].difficulty}</td>
-							<td>Hours: {reviews[i].hours}</td>
-						</tr>
+					<table>
+						<tbody className="reviewRatings">
+							<tr>
+								<td>Quality:</td>
+								<td>{reviews[i].quality}</td>
+							</tr>
+							<tr>
+								<td>Difficulty:</td>
+								<td>{reviews[i].difficulty}</td>
+							</tr>
+							<tr>
+								<td>Hours:</td>
+								<td>{reviews[i].hours}</td>
+							</tr>
+						</tbody>
 					</table>
-          <p> comment: {reviews[i].comment}</p>
+          <p className="comment">{reviews[i].comment}</p>
         </div>
       )
     }
@@ -102,11 +111,13 @@ class Class extends Component {
 					</div>
 
 					<table className="ratings">
-						<tr>
-							<td>Quality: {this.state.classObject.quality}</td>
-							<td>Difficulty: {this.state.classObject.difficulty}</td>
-							<td>Hours: {this.state.classObject.hours}</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td>Quality: {this.state.classObject.quality}</td>
+								<td>Difficulty: {this.state.classObject.difficulty}</td>
+								<td>Hours: {this.state.classObject.hours}</td>
+							</tr>
+						</tbody>
 					</table>
 
 					{/*	<button onClick={this.submit} type="button">

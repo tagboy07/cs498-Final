@@ -1,4 +1,5 @@
 $blue: #13294b;
+$green: #1ECD97;
 
 .Class{
 	width: 100%;
@@ -9,9 +10,9 @@ $blue: #13294b;
 .Class .wrapper{
 	width: 50%;
 	position: absolute;
-	top: 40%;
+	top: 20%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
 }
 
 .Class .titles{
@@ -42,6 +43,20 @@ $blue: #13294b;
 }
 
 .Class .reviews .review .reviewRatings{
-	width: 100%;
+	width: 100px;
+	display: inline-block;
+	vertical-align: top;
 	text-align: center;
+	background-color: #1ECD97;
+	color: white;
+}
+
+.Class .reviews .review .reviewRatings tr > td:nth-child(1){
+	text-align: left;
+}
+
+.Class .reviews .review .comment{
+	margin: 8px 0 0 8px;
+	display: inline-block;
+	vertical-align: top;
 }
