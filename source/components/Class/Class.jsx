@@ -9,7 +9,7 @@ import styles from './Class.scss'
 class Class extends Component {
 	constructor(props) {
 		super(props);
-		this.submit = this.submit.bind(this)
+		this.submit = this.submit.bind(this);
 		this.state = {
 			classObject : this.props.location.state.classObje.data[0],
 			reviewDivs: [],
@@ -67,19 +67,20 @@ class Class extends Component {
   }
 
 	submit(event) {
-    event.preventDefault();
+    	event.preventDefault();
 //		Api call to check if user already submitted a review for this class
 		let theuser = this.state.username.user;
 		console.log(theuser);
 		let theclass = this.state.classObject._id;
+		let th = this;
 		axios.get('http://localhost:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
 		.then(function (response) {
     		console.log(response);
 			if(response.data.data.length == 0){
-				console.log("Submitting the class", this.state.className, this.state.username)
-				this.props.history.push({
+				console.log("Submitting the class", th.state.className, th.state.username)
+				th.props.history.push({
 				pathname: `/review`,
-				state: {className: this.state.className, user: this.state.username}
+				state: {className: th.state.className, user: th.state.username}
 					});
 			}
 			else{
@@ -109,9 +110,9 @@ class Class extends Component {
 						</tr>
 					</table>
 
-					{/*	<button onClick={this.submit} type="button">
+						<button onClick={this.submit} type="button">
 								Write Review
-					</button> */}
+					</button> 
 					
 					<div className="reviews">
 						{this.state.reviewDivs}
