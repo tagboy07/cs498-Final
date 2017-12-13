@@ -113,25 +113,38 @@ router.get('/', function(req, res) {
 });
 
 router.delete('/:id', function(req, res){
-	ReviewSchema.findByIdAndRemove(req.params.id, function(err, review){
+	ReviewSchema.findByIdAndRemove( req.params.id, function(err, review){
 		if(err) {
 			res.status(500).send({
 				messages: err,
 				data: []
 			});
-		} else {
-			if(!review){
-        		res.status(404).send({
-          		message: 'Review was not found',
-          		data: review
-        		});
-      		}
-      		else {
-			res.status(200).send({
-				message: "resource deleted",
-				data: review
+    }
+    else {
+			ClassSchema.findByIdAndRemove(review.class, function(err, classObj) {
+					if(err) {
+						res.status(500).send({
+						messages: err,
+						data: []
+						});
+					}
+					else {
+						StudentSchema.findOneAndUpdate({username:review.username}, { $pullAll: {uid: [req.params.id] } }, function(err, student) {
+							if(err) {
+								res.status(500).send({
+									messages: err,
+									data: []
+								});
+							}
+							else{
+								res.status(200).send({
+									message: 'OK',
+									data: review
+								});
+							}
+						});
+				 }
 			});
-		}
 		}
 	});
 });

@@ -15,38 +15,41 @@ class Class extends Component {
 			reviewDivs: [],
 			username: '',
 			className: '',
-      quality: '',
-      difficulty: '',
-      hours: ''
+			quality: '',
+			difficulty: '',
+			hours: '',
+			revToggle: []
 		};
 		this.getReviews = this.getReviews.bind(this);
+		this.submitReview = this.submitReview.bind(this);
+		this.deleteReview = this.deleteReview.bind(this);
 		this.getReviews(this.state.classObject);
-  }
+	}
 
-  getReviews(classObj){
-    var self = this;
-    //console.log(classObj._id);
-    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
-      .then(function (response) {
-        self.addDivs(response.data.data);
-    })
-    .catch(function (error) {
-      //console.log(error);
-    });
-  }
+	getReviews(classObj){
+		var self = this;
+		//console.log(classObj._id);
+		axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
+		.then(function (response) {
+			self.addDivs(response.data.data);
+		})
+		.catch(function (error) {
+			//console.log(error);
+		});
+	}
 
-  addDivs(reviews){
-    console.log(reviews);
-    let items = [];
-    var tempQuality = 0;
-    var tempDifficulty = 0;
-    var tempHours = 0;
-    for(var i=0; i < reviews.length; i++){
-    	tempQuality += reviews[i].quality;
-      tempDifficulty += reviews[i].difficulty;
-      tempHours += reviews[i].hours;
-      items.push(
-        <div className="review" key={i}>
+	addDivs(reviews){
+		console.log(reviews);
+		let items = [];
+		var tempQuality = 0;
+		var tempDifficulty = 0;
+		var tempHours = 0;
+		for(var i=0; i < reviews.length; i++){
+			tempQuality += reviews[i].quality;
+			tempDifficulty += reviews[i].difficulty;
+			tempHours += reviews[i].hours;
+			items.push(
+				<div className="review" key={i}>
 					<table className="reviewRatings">
 						<tbody>
 							<tr>
@@ -63,92 +66,142 @@ class Class extends Component {
 							</tr>
 						</tbody>
 					</table>
-          <p className="comment">{reviews[i].comment}</p>
-        </div>
-      )
-    }
-    this.setState({quality : tempQuality/reviews.length});
-    this.setState({difficulty: tempDifficulty/reviews.length});
-    this.setState({hours: tempHours/reviews.length});
-    this.setState({reviewDivs: items});
-   }
+					<p className="comment">{reviews[i].comment}</p>
+				</div>
+			)
+		}
+		this.setState({quality : tempQuality/reviews.length});
+		this.setState({difficulty: tempDifficulty/reviews.length});
+		this.setState({hours: tempHours/reviews.length});
+		this.setState({reviewDivs: items});
+	}
 
-   	componentWillMount() {
+	componentWillMount() {
 		const curClass = ((this.props.location || {}).state || {}).className
-    if(curClass) {
-      this.setState({
-		  className: curClass
-      })
-    }
-    if(localStorage.getItem('username') != null) {
-      this.setState({username:localStorage.getItem('username') })
-    }
-  }
+		if(curClass) {
+			this.setState({
+				className: curClass
+			})
+		}
+		if(localStorage.getItem('username') != null) {
+			this.setState({username:localStorage.getItem('username')}, () => {
+				let th = this;
+				axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"username":'+'"' + this.state.username + '"' + ',' + '"class":"' + this.state.classObject._id + '"}')
+				.then(function (response) {
+					const resObj = response.data.data;
+					th.setState({
+						revToggle: resObj
+					});
+				});
+			});
+		}
+	}
 
 	submit(event) {
-    	event.preventDefault();
-//		Api call to check if user already submitted a review for this class
-    if(this.state.username ==''){
-      this.props.history.push({
-        pathname: `/login`})
-      return
-    }
-		let theuser = this.state.username;
-		//console.log(theuser);
-		let theclass = this.state.classObject._id;
-		let th = this;
-		axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
-		.then(function (response) {
-    		//console.log(response);
-			if(response.data.data.length == 0){
-				//console.log("Submitting the class", th.state.className, th.state.username)
-				th.props.history.push({
+		event.preventDefault();
+		//		Api call to check if user already submitted a review for this class
+		if(this.state.username ==''){
+			this.props.history.push({
+				pathname: `/login`})
+				return
+			}
+			let theuser = this.state.username;
+			//console.log(theuser);
+			let theclass = this.state.classObject._id;
+			let th = this;
+			axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}')
+			.then(function (response) {
+				//console.log(response);
+				if(response.data.data.length == 0){
+					//console.log("Submitting the class", th.state.className, th.state.username)
+					th.props.history.push({
+						pathname: `/review`,
+						state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
+					});
+				}
+				else{
+					alert("You already submitted a review for this class.");
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		}
+
+		submitReview() {
+			event.preventDefault();
+			if(this.state.username ==''){
+				this.props.history.push({
+					pathname: `/login`
+				});
+				return
+			}
+			this.props.history.push({
 				pathname: `/review`,
 				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
-					});
+			});
+		}
+
+		deleteReview() {
+			event.preventDefault();
+			if(this.state.username ==''){
+				this.props.history.push({
+					pathname: `/login`
+				});
+				return
 			}
-			else{
-				alert("You already submitted a review for this class.");
+			this.props.history.push({
+				pathname: `/review`,
+				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
+			});
+		}
+
+		renderButton() {
+			if(this.state.revToggle.length == 0) {
+				return (
+					<button onClick={this.submit} type="button">Write Review</button>
+				)
 			}
-		})
-		.catch(function (error) {
-    		console.log(error);
-  		});
-	}
-	
-	render() {
-		return(
-      <div>
-				<Header />
-				<div className="Class">
-					<div className="wrapper">
+			else {
+				return (
+					<button onClick={this.submit} type="button">Delete Review</button>
+				)
+			}
+		}
 
-						<div className="titles">
-							<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
-							<h3>{this.state.classObject.title}</h3>
-							<button onClick={this.submit} type="button">Write Review</button> 
+		render() {
+			return(
+				<div>
+					<Header />
+					<div className="Class">
+						<div className="wrapper">
+
+							<div className="titles">
+								<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
+								<h3>{this.state.classObject.title}</h3>
+								{this.renderButton()}
+							</div>
+
+							<table className="ratings">
+								<tbody>
+									<tr>
+										<td>Quality: {this.state.quality}</td>
+										<td>Difficulty: {this.state.difficulty}</td>
+										<td>Hours: {this.state.hours}</td>
+									</tr>
+								</tbody>
+							</table>
+
+
+							<div className="reviews">
+								{this.state.reviewDivs}
+							</div>
+
 						</div>
-
-						<table className="ratings">
-							<tbody>
-								<tr>
-									<td>Quality: {this.state.quality}</td>
-									<td>Difficulty: {this.state.difficulty}</td>
-									<td>Hours: {this.state.hours}</td>
-								</tr>
-							</tbody>
-						</table>
-
-
-						<div className="reviews">
-							{this.state.reviewDivs}
-						</div>
-
 					</div>
 				</div>
-      </div>
-		)
+			)
+		}
 	}
-}
 
-export default Class
+	export default Class
