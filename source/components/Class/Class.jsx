@@ -25,13 +25,13 @@ class Class extends Component {
 
   getReviews(classObj){
     var self = this;
-    console.log(classObj._id);
+    //console.log(classObj._id);
     axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
       .then(function (response) {
         self.addDivs(response.data.data);
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
     });
   }
 
@@ -94,14 +94,14 @@ class Class extends Component {
       return
     }
 		let theuser = this.state.username;
-		console.log(theuser);
+		//console.log(theuser);
 		let theclass = this.state.classObject._id;
 		let th = this;
 		axios.get('http://localhost:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
 		.then(function (response) {
-    		console.log(response);
+    		//console.log(response);
 			if(response.data.data.length == 0){
-				console.log("Submitting the class", th.state.className, th.state.username)
+				//console.log("Submitting the class", th.state.className, th.state.username)
 				th.props.history.push({
 				pathname: `/review`,
 				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}

@@ -40,11 +40,8 @@ class Login extends Component {
 			password: this.state.password
 		})
 		.then(function (response) {
-			console.log(response);
-			//TODO: Handle Right Password
-			console.log(th.props.history);
-			th.props.history.goBack();
 			localStorage.setItem('username', response.data.user)
+			th.props.history.goBack();
 		})
 		.catch(function (error) {
 			console.log(error);

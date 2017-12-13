@@ -29,8 +29,8 @@ getReviews(user){
     var self = this;
     axios.get(baseURL + '/api/review?where={"username":' + '"' + this.state.username + '"}')
       .then(function (response) {
-        console.log("classmajor");
-				console.log(response.data.data[3].classMajor);
+    //     console.log("classmajor");
+				// console.log(response.data.data[3].classMajor);
 			self.setState({ reviews : response.data.data});
         self.addDivs(response.data.data);
     })
