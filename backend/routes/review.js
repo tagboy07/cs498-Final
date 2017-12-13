@@ -21,6 +21,8 @@ router.post('/', function(req, res) {
       var reviewData = {
         username: req.body.username,
         class: revClass._id,
+        classNumber: req.body.classNum,
+        classMajor: req.body.className,
         quality: req.body.quality,
         difficulty: req.body.difficulty,
         hours: req.body.hours,
