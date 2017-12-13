@@ -29,7 +29,7 @@ class Header extends Component {
 						<ul>
 							<Link to={"/"}>Home</Link>
 							<span className="divider">|</span>
-							<Link to={"/login"}>Profile</Link>
+							<Link to={"/profile"}>Profile</Link>
 							<span className="divider">|</span>
 							<Link to={"/login"}>Login</Link>
 						</ul>

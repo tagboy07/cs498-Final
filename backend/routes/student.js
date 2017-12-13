@@ -1,5 +1,6 @@
 var express = require('express'),
   router = express.Router(),
+  ClassSchema = require('../models/class'),
   studentSchema = require('../models/student');
 
 
@@ -44,6 +45,25 @@ router.post('/class/:id', function(req, res) {
 	})
 });
 
+router.get('/', function(req, res){
+
+	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
+    studentSchema.find(whereQ, function(err, student) {
+		if(err) {
+			res.status(500).send({
+				message: err,
+				data: []
+			});
+		} else {
+			res.status(200).send({
+				message: 'OK',
+				data: student
+			});
+		}
+	})
+  });
+
+
 router.get('/:id', function(req, res){
     studentSchema.findById(req.params.id, function(err, student){
       if(err) {
@@ -67,6 +87,38 @@ router.get('/:id', function(req, res){
 		}
     });
   });
+
+router.get('/:user/classes', function(req, res) {
+	studentSchema.findOne({username: req.params.user}, function(err, student) {
+    	if(err) {
+    		res.status(500).send({
+    			message: err,
+    			data: []
+    		});
+    	}
+    	else{
+    		ClassSchema.find({
+    			'_id': { $in: [
+    				student.classes
+    				]}
+    		}, function(err, classesArray) {
+    			if(err) {
+    				res.status(500).send({
+    				message: err,
+    				data: []
+    				});
+    			}
+    			else {
+    				res.status(200).send({
+    					message: 'OK',
+    					data: classesArray
+    				});
+    			}
+    		});
+    	}
+    });
+
+});
 
 router.put('/:id', function(req, res) {
 	var studentData = {

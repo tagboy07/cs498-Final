@@ -1,6 +1,47 @@
+$blue: #13294b;
+
 .Class{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.Class .wrapper{
+	width: 50%;
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.Class .titles{
+	text-align: center;
+	color: white;
+	border-bottom: solid 2px white;
+}
+
+.Class .titles h1{
+	margin: 0 0 8px 0;
+	font-size: 48px;
+}
+
+.Class .titles h3{
+	margin: 0 0 4px 0;
+}
+
+.Class .ratings{
+	width: 80%;
+	margin: 0 auto 32px;
+	text-align: center;
+	color: white;
+}
+
+.Class .reviews .review{
+	background-color: white;
+	margin: 32px 0;
+}
+
+.Class .reviews .review .reviewRatings{
+	width: 100%;
+	text-align: center;
 }
