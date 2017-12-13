@@ -40,8 +40,8 @@ class Class extends Component {
     	console.log(reviews[i].quality);
       items.push(
         <div className="review" key={i}>
-					<table>
-						<tbody className="reviewRatings">
+					<table className="reviewRatings">
+						<tbody>
 							<tr>
 								<td>Quality:</td>
 								<td>{reviews[i].quality}</td>
@@ -111,6 +111,7 @@ class Class extends Component {
 					<div className="titles">
 						<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
 						<h3>{this.state.classObject.title}</h3>
+						<button onClick={this.submit} type="button">Write Review</button> 
 					</div>
 
 					<table className="ratings">
@@ -123,9 +124,6 @@ class Class extends Component {
 						</tbody>
 					</table>
 
-						<button onClick={this.submit} type="button">
-								Write Review
-					</button> 
 					
 					<div className="reviews">
 						{this.state.reviewDivs}

@@ -16,6 +16,7 @@ $green: #1ECD97;
 }
 
 .Class .titles{
+	position: relative;
 	text-align: center;
 	color: white;
 	border-bottom: solid 2px white;
@@ -28,6 +29,36 @@ $green: #1ECD97;
 
 .Class .titles h3{
 	margin: 0 0 4px 0;
+}
+
+.Class .titles button{
+	width: 130px;
+	height: 40px;
+	position: absolute;
+	bottom: 8px;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0);
+  border: 2px solid $green;
+	border-radius: 20px;
+  color: $green;
+  cursor: pointer;
+  transition: all 0.25s ease;
+	
+  &:hover {
+    color: white;
+    background: $green;
+  }
+	
+	&:focus{
+		outline: none;
+	}
+	
+	&:active{
+		border-color: rgba(30, 205, 151, 0.375);
+		background-color: rgba(30, 205, 151, 0.75);
+		color: rgba(255, 255, 255, .75);
+		outline: none;
+	}
 }
 
 .Class .ratings{
