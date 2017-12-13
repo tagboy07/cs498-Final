@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { Container, Divider, Grid, Input } from 'semantic-ui-react'
 import Header from '../Header/Header.jsx';
 import styles from './Home.scss'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Home extends Component {
 
@@ -43,16 +44,16 @@ class Home extends Component {
         if(response.data.data.length >= 1 ){
           self.goToClass(response.data);
         }
-        else {
-          self.setState({
-            searchClass: 'searchForm-shake'
-          });
-        }
+        // else {
+        //   self.setState({
+        //     searchClass: 'searchForm-shake'
+        //   });
+        // }
       })
       .catch(function (error) {
-        self.setState({
-          searchClass: 'searchForm-shake'
-        });
+        // self.setState({
+        //   searchClass: 'searchForm-shake'
+        // });
       });
 	}
 
