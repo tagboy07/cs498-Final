@@ -24,19 +24,19 @@ $green: #1ECD97;
 }
 
 .Review .rating{
+	width: 100%;
 	text-align: center;
 }
 
 .Review .rating h1{
+	margin-top: 0;
 	color: white;
 }
 
 .Review .rating .stars{
-	width: 120px;
+	display: inline-block;
 	margin-bottom: 48px;
 	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 .Review .rating h3{
