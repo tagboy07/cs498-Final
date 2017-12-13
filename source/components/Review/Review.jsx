@@ -103,21 +103,19 @@ class Review extends Component {
 						<h3>{this.state.classTitle}</h3>
 					</div>
 
-					<div className="Rating">
-						<h1 className = "Before">Quality</h1>
-						<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
+					<div className="rating">
+						<h1>Quality</h1>
+						<ReactStars className = "stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
 
-						<h1 className = "Before">Difficulty</h1>
-						<ReactStars className = "Stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color2={'#ffd700'} />
+						<h1>Difficulty</h1>
+						<ReactStars className = "stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
 
-						<h1 className = "Before">Hours</h1>
-						<ReactStars className = "Stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color2={'#ffd700'} />
+						<h1>Hours</h1>
+						<ReactStars className = "stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
 
-						<form className = "Comment" onSubmit={this.handleSubmit}>
-							<label>
-								<h3>Comment: </h3>
-								<input className = "textbox" type="text" value={this.state.comment} onChange={this.handleChange}/>
-							</label>
+						<h1>Comment</h1>
+						<form className="Comment" onSubmit={this.handleSubmit}>
+								<textarea value={this.state.comment} onChange={this.handleChange}></textarea>
 						</form>
 
 						<button onClick={this.sendReview} type="button">Submit Review</button>

@@ -16,8 +16,70 @@ $green: #1ECD97;
 }
 
 .Review .titles{
+	margin-bottom: 16px;
 	position: relative;
 	text-align: center;
 	color: white;
 	border-bottom: solid 2px white;
+}
+
+.Review .rating{
+	text-align: center;
+}
+
+.Review .rating h1{
+	color: white;
+}
+
+.Review .rating .stars{
+	width: 100px;
+	margin-bottom: 48px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.Review .rating h3{
+	color: white;
+}
+
+.Review .rating form{
+	width: 40%;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.Review .rating textarea{
+	width: 80%;
+	max-width: 100%;
+	height: 100px;
+	max-height: 200px;
+}
+
+.Review .rating button{
+	width: 130px;
+	height: 40px;
+	background-color: rgba(0, 0, 0, 0);
+  border: 2px solid $green;
+	border-radius: 20px;
+  color: $green;
+  cursor: pointer;
+  transition: all 0.25s ease;
+	
+  &:hover {
+    color: white;
+    background: $green;
+  }
+	
+	&:focus{
+		outline: none;
+	}
+	
+	&:active{
+		border-color: rgba(30, 205, 151, 0.375);
+		background-color: rgba(30, 205, 151, 0.75);
+		color: rgba(255, 255, 255, .75);
+		outline: none;
+	}
 }
