@@ -26,6 +26,24 @@ router.post('/', function(req, res) {
 	})
 });
 
+router.post('/class/:id', function(req, res) {
+	const id = req.params.id;
+	studentSchema.findOneAndUpdate({username: req.body.username},  { $push: { classes: id }}, function(err, student) {
+		if(err) {
+    			res.status(500).send({
+    				message: err,
+    				data: []
+    			});
+    		}
+    	else {
+			res.status(201).send({
+				message: 'OK',
+				data: student
+			});
+		}
+	})
+});
+
 router.get('/:id', function(req, res){
     studentSchema.findById(req.params.id, function(err, student){
       if(err) {

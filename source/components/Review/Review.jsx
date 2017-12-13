@@ -22,8 +22,8 @@ class Review extends Component {
 				  	qualityrating: 0,
 				  	difficultyrating: 0,
 				  	hoursrating: 0,
-          			username: '',
-          			className: ''
+          	username: '',
+          	className: ''
 				 };
 	this.handleQualityChange = this.handleQualityChange.bind(this);
 	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
@@ -57,10 +57,14 @@ class Review extends Component {
 	sendReview(event) {
     	event.preventDefault();
 		this.setState({comment: event.target.value});
-		if(window.confirm('Submit Review for ' + this.state.className + '?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
+    console.log(this.state.className)
+    const classNum = Number(this.state.className.match(/\d+/g)[0]);
+    const className = this.state.className.replace(/[0-9]/g, '');
+    console.log(this.state.username.user, this.state.className,this.state.qualityrating, this.state.difficultyrating, this.state.hoursrating, this.state.comment)
+		if(window.confirm('User' + this.state.username.user + 'Submit Review for ' + this.state.className + '?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
 			axios.post('http://localhost:3000/api/review/', {
-			username: this.state.username,
-			class: this.state.className,
+			username: this.state.username.user,
+			class: {classNum, className},
 			quality: this.state.qualityrating,
 			difficulty: this.state.difficultyrating,
 			hours: this.state.hoursrating,
@@ -80,6 +84,7 @@ class Review extends Component {
     console.log(this.state.username, this.state.className)
     return (
       	<div className="Review">
+			<h1 className = "Classheader">{this.state.className}</h1>
 			<div className="Rating">
 				<h1 className = "Before">Quality</h1>
 				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />

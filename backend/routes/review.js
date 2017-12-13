@@ -1,11 +1,19 @@
 var express = require('express'),
   router = express.Router(),
-  ReviewSchema = require('../models/review');
+  ReviewSchema = require('../models/review'),
+  ClassSchema = require('../models/class'),
+  StudentSchema = require('../models/student'),
+  ObjectId = require('mongodb').ObjectID;
 
 router.post('/', function(req, res) {
+	var classSearch = {
+		number: req.body.classNum,
+		major: req.body.className
+	}
+	var theClass = ClassSchema.findOne(classSearch)
 	var reviewData = {
 		username: req.body.username,
-		class: req.body.class,
+		class: theClass._id,
 		quality: req.body.quality,
 		difficulty: req.body.difficulty,
 		hours: req.body.hours,
@@ -13,20 +21,40 @@ router.post('/', function(req, res) {
 		anon: req.body.anon,
 		dateCreated: req.body.dateCreated,
 	}
-
-	ReviewSchema.create(reviewData, function(err, review) {
-		if(err) {
+  var createdReview = ReviewSchema.create(reviewData, function(err, review) {
+    if(err) {
 			res.status(500).send({
 				message: err,
 				data: []
 			});
 		} else {
-			res.status(201).send({
-				message: 'OK',
-				data: review
-			});
-		}
-	})
+      console.log(review)
+      const id = ObjectId(review._id)
+      StudentSchema.findOneAndUpdate({username: req.body.username},  { $push: { reviews: id }}, function(err, student) {
+        if(err) {
+    			res.status(500).send({
+    				message: err,
+    				data: []
+    			});
+    		}
+        else {
+          ClassSchema.findOneAndUpdate(classSearch, {$push: {reviews: id }}, function(err, classobj){
+        		if(err){
+        				res.status(500).send({
+        				messages: err,
+        				data: []
+        			});
+        		} else {
+        				res.status(200).send({
+        				message: "OK",
+        				data: review
+        			});
+        		}
+        	});
+        }
+      });
+    }
+  });
 });
 
 router.get('/:id', function(req, res){
@@ -56,7 +84,7 @@ router.get('/:id', function(req, res){
 
 router.get('/', function(req, res) {
 	var whereQ = req.query.where != null ? JSON.parse(req.query.where) : '';
-	
+
 	ReviewSchema.find(whereQ, function(err, review) {
 		if(err) {
 			res.status(500).send({
