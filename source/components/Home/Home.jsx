@@ -17,7 +17,8 @@ class Home extends Component {
         value: '',
         username:  '',
         divItems : [],
-        dumb: ''
+        dumb: '',
+				error: ''
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -43,8 +44,10 @@ class Home extends Component {
         if(response.data.data.length >= 1 ){
           self.goToClass(response.data);
         }
+				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like: 'CS225'"});
       })
       .catch(function (error) {
+				self.setState({error:"The class you entered is either not available or is spelled incorrectly. Try something like: 'CS225'"});
       });
 	}
 
@@ -70,6 +73,7 @@ class Home extends Component {
                     onChange={this.handleChange}
             />
         </form>
+				<p className="error">{this.state.error}</p>
       </div>
     </div>
     );
