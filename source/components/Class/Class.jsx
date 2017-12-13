@@ -11,8 +11,8 @@ class Class extends Component {
 		super(props);
 		this.submit = this.submit.bind(this)
 		this.state = {
-		  	classObject : this.props.location.state.classObje.data[0],
-		  	reviewDivs: [],
+			classObject : this.props.location.state.classObje.data[0],
+			reviewDivs: [],
 			username: '',
 			className: ''
 		};
@@ -39,8 +39,15 @@ class Class extends Component {
     for(var i=0; i < reviews.length; i++){
     	console.log(reviews[i].quality);
       items.push(
-        <div className="rev" key={i}>
-          <p> comment: {reviews[i].comment} quality: {reviews[i].quality} difficulty: {reviews[i].difficulty} hours: {reviews[i].hours}</p>
+        <div className="review" key={i}>
+					<table className="reviewRatings">
+						<tr>
+							<td>Quality: {reviews[i].quality}</td>
+							<td>Difficulty: {reviews[i].difficulty}</td>
+							<td>Hours: {reviews[i].hours}</td>
+						</tr>
+					</table>
+          <p> comment: {reviews[i].comment}</p>
         </div>
       )
     }
@@ -71,16 +78,30 @@ class Class extends Component {
 	render() {
 		return(
 			<div className="Class">
-				<h2>{this.state.classObject.title}</h2>
-				<h3>Quality: {this.state.classObject.quality}</h3>
-				<h3>Difficulty: {this.state.classObject.difficulty}</h3>
-				<h3>Hours: {this.state.classObject.hours}</h3>
-				<button onClick={this.submit} type="button">
-          			Write Review
-     			</button>
- 				 <div className="reviewss">
- 					{this.state.reviewDivs}
- 				</div>
+				<div className="wrapper">
+
+					<div className="titles">
+						<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
+						<h3>{this.state.classObject.title}</h3>
+					</div>
+
+					<table className="ratings">
+						<tr>
+							<td>Quality: {this.state.classObject.quality}</td>
+							<td>Difficulty: {this.state.classObject.difficulty}</td>
+							<td>Hours: {this.state.classObject.hours}</td>
+						</tr>
+					</table>
+
+					{/*	<button onClick={this.submit} type="button">
+								Write Review
+					</button> */}
+					
+					<div className="reviews">
+						{this.state.reviewDivs}
+					</div>
+					
+				</div>
 			</div>
 		)
 	}
