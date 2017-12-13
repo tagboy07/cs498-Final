@@ -69,8 +69,9 @@ $green: #1ECD97;
 }
 
 .Class .reviews .review{
+	width: 80%;
 	background-color: white;
-	margin: 32px 0;
+	margin: 32px auto;
 }
 
 .Class .reviews .review .reviewRatings{
@@ -78,8 +79,9 @@ $green: #1ECD97;
 	display: inline-block;
 	vertical-align: top;
 	text-align: center;
-	background-color: #1ECD97;
+	background-color: $green;
 	color: white;
+	border-right: solid 3px $blue;
 }
 
 .Class .reviews .review .reviewRatings tr > td:nth-child(1){

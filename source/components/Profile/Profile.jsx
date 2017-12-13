@@ -72,11 +72,13 @@ getReviews(user){
       items.push(
 				<div className="review" key={i}>
 					<table className="reviewRatings">
-						<tr>
-							<td>Quality: {reviews[i].quality}</td>
-							<td>Difficulty: {reviews[i].difficulty}</td>
-							<td>Hours: {reviews[i].hours}</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td>Quality: {reviews[i].quality}</td>
+								<td>Difficulty: {reviews[i].difficulty}</td>
+								<td>Hours: {reviews[i].hours}</td>
+							</tr>
+						</tbody>
 					</table>
           <p> comment: {reviews[i].comment}</p>
         </div>
