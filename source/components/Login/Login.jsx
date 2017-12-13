@@ -40,12 +40,11 @@ class Login extends Component {
 			password: this.state.password
 		})
 		.then(function (response) {
-			console.log(response);
-			//TODO: Handle Right Password
+			localStorage.setItem('username', response.data.user)
 			th.props.history.push({
 				pathname: '/',
 			});
-			localStorage.setItem('username', response.data.user)
+
 		})
 		.catch(function (error) {
 			console.log(error);

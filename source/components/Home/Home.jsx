@@ -16,7 +16,8 @@ class Home extends Component {
     this.state = {
         value: '',
         username:  '',
-        divItems : []
+        divItems : [],
+        dumb: ''
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -37,12 +38,13 @@ class Home extends Component {
     event.preventDefault();
     const prefixAndPostfix = this.state.value.split(/(\d+)/);
     var self = this;
-    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1] + ',' + '"major" :"' + prefixAndPostfix[0] + '"}')
+    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1].trim() + ',' + '"major" :"' + prefixAndPostfix[0].trim() + '"}')
       .then(function (response) {
-        self.goToClass(response.data);
+        if(response.data.data.length >= 1 ){
+          self.goToClass(response.data);
+        }
       })
       .catch(function (error) {
-        console.log(error);
       });
 	}
 
@@ -54,11 +56,10 @@ class Home extends Component {
   }
 
   render() {
-    console.log("here")
     return (
-      <div className="fullBody">
+      <div className="fullBody" >
             <Header fake={"Test"}/>
-      <div className="Home">
+      <div className="Home" >
         <div className="transparentBlue"></div>
         <h1>SANITY CHECK</h1>
         <h3>The best place to review UIUC classes and see how hard next semester will be.</h3>
