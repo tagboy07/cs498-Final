@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Form, Grid, Image, Message, Segment } from 'semantic-ui-react'
 //import LinkedStateMixin from 'react-linked-state-adapter';
 import styles from './Login.scss'
 import Auth from './Auth.js'
 import axios from 'axios'
-
+import Header from '../Header/Header.jsx';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -55,21 +55,24 @@ class Login extends Component {
 	}
 	render() {
 		return(
-			<div className="Login">
-				<form role='form'>
-					<h1>SANITY CHECK</h1>
+			 <div>     
+			 	<Header></Header>
+				<div className="Login">
+					<form role='form'>
+						<h1>SANITY CHECK</h1>
 
-					<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
-					<span className="underline"></span>
+						<input className="username" type='text' value={this.state.username}  onChange={this.handleUsernameChange} placeholder='Username' />
+						<span className="underline"></span>
 
-					<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
-					<span className="underline"></span>
+						<input type='password' value={this.state.password}  onChange={this.handlePasswordChange} placeholder='Password' />
+						<span className="underline"></span>
 
-					<Link to={"/register"}>Register</Link>
-					<button type='submit' onClick={this.login.bind(this)}>LOGIN</button>
+						<Link to={"/register"}>Register</Link>
+						<button type='submit' onClick={this.login.bind(this)}>LOGIN</button>
 
-					<p className="error">{this.state.error}</p>
-				</form>
+						<p className="error">{this.state.error}</p>
+					</form>
+				</div>
 			</div>
 		)
 	}

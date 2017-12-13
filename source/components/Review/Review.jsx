@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Container, Divider, Grid, Header, Input } from 'semantic-ui-react'
+import { Container, Divider, Grid, Input } from 'semantic-ui-react'
 import ReactStars from 'react-stars'
-
+import Header from '../Header/Header.jsx';
 import styles from './Review.scss'
 
 //const ratingChanged = (newRating) => {
@@ -87,6 +87,8 @@ class Review extends Component {
   render() {
     console.log(this.state.username, this.state.className)
     return (
+    	<div>
+    	      <Header></Header>
       	<div className="Review">
 			<div className="wrapper">
 				<div className="titles">
@@ -109,6 +111,7 @@ class Review extends Component {
 					</form>
 				</div>
 			</div>
+		</div>
 		</div>
     );
   }

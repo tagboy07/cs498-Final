@@ -12,7 +12,13 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
+    	username: ''
     };
+  }
+  componentWillReceiveProps(newProps){
+    console.log(newProps)
+  	this.setState({username: newProps.theUsername })
+
   }
 
   render() {
@@ -23,7 +29,7 @@ class Header extends Component {
 						<ul>
 							<Link to={"/"}>Home</Link>
 							<span className="divider">|</span>
-							<Link to={"/login"}>Profile</Link>
+							<Link to={"/profile"}>Profile</Link>
 							<span className="divider">|</span>
 							<Link to={"/login"}>Login</Link>
 						</ul>

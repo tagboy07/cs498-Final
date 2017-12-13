@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Form, Grid, Image, Message, Segment } from 'semantic-ui-react'
 import axios from 'axios'
-
+import Header from '../Header/Header.jsx';
 import styles from './Class.scss'
 
 class Class extends Component {
@@ -94,6 +94,8 @@ class Class extends Component {
 	
 	render() {
 		return(
+      <div>
+      <Header></Header>
 			<div className="Class">
 				<div className="wrapper">
 
@@ -120,6 +122,7 @@ class Class extends Component {
 					
 				</div>
 			</div>
+      </div>
 		)
 	}
 }

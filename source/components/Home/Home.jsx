@@ -5,22 +5,22 @@ import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types';
-import { Container, Divider, Grid, Header, Input } from 'semantic-ui-react'
-
+import { Container, Divider, Grid, Input } from 'semantic-ui-react'
+import Header from '../Header/Header.jsx';
 import styles from './Home.scss'
 
 class Home extends Component {
 
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
         value: '',
         username:  '',
         divItems : []
+
     };
     this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);
+    this.submit = this.submit.bind(this);    
   }
 
   componentWillMount() {
@@ -57,8 +57,10 @@ class Home extends Component {
   }
 
   render() {
-    console.log('username:', this.state.username);
+    //console.log('username:', this.state.username);
     return (
+      <div className="fullBody">
+            <Header></Header>
       <div className="Home">
         <div className="transparentBlue"></div>
         <h1>SANITY CHECK</h1>
@@ -71,6 +73,7 @@ class Home extends Component {
             />
         </form>
       </div>
+    </div>
     );
   }
 
