@@ -7,12 +7,12 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
 	var classSearch = {
-		number: req.body.classNum,
-		major: req.body.className
+		number: req.body.class.classNum,
+		major: req.body.class.className
 	}
 	ClassSchema.findOne(classSearch, function(err, revClass) {
-    if(err) {
-      res.status(500).send({
+    if(err ) {
+      res.status(400).send({
         message: err,
         data: []
       });
@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
     else {
       var reviewData = {
         username: req.body.username,
-        class: revClass._id,
+        class: (revClass || {})._id,
         classNumber: req.body.classNum,
         classMajor: req.body.className,
         quality: req.body.quality,
@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
         anon: req.body.anon,
         dateCreated: req.body.dateCreated
       }
+      console.log(reviewData)
       ReviewSchema.create(reviewData, function(err, review) {
         if(err) {
     			res.status(500).send({
@@ -112,25 +113,38 @@ router.get('/', function(req, res) {
 });
 
 router.delete('/:id', function(req, res){
-	ReviewSchema.findByIdAndRemove(req.params.id, function(err, review){
+	ReviewSchema.findByIdAndRemove( req.params.id, function(err, review){
 		if(err) {
 			res.status(500).send({
 				messages: err,
 				data: []
 			});
-		} else {
-			if(!review){
-        		res.status(404).send({
-          		message: 'Review was not found',
-          		data: review
-        		});
-      		}
-      		else {
-			res.status(200).send({
-				message: "resource deleted",
-				data: review
+    }
+    else {
+			ClassSchema.findOneAndUpdate(review.class, { $pullAll: {reviews: [req.params.id] } }, function(err, classObj) {
+					if(err) {
+						res.status(500).send({
+						messages: err,
+						data: []
+						});
+					}
+					else {
+						StudentSchema.findOneAndUpdate({username:review.username}, { $pullAll: {reviews: [req.params.id] } }, function(err, student) {
+							if(err) {
+								res.status(500).send({
+									messages: err,
+									data: []
+								});
+							}
+							else{
+								res.status(200).send({
+									message: 'OK',
+									data: review
+								});
+							}
+						});
+				 }
 			});
-		}
 		}
 	});
 });
@@ -168,6 +182,6 @@ router.put('/:id', function(req, res) {
 			}
 		}
 	});
-});
+})
 
 module.exports = router;
