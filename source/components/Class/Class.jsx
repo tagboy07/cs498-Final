@@ -79,7 +79,7 @@ class Class extends Component {
 								<td>{reviews[i].difficulty}</td>
 							</tr>
 							<tr>
-								<td>Hours:</td>
+								<td>Time:</td>
 								<td>{reviews[i].hours}</td>
 							</tr>
 						</tbody>
@@ -114,7 +114,7 @@ class Class extends Component {
 								<td>{reviews[i].difficulty}</td>
 							</tr>
 							<tr>
-								<td>Hours:</td>
+								<td>Time:</td>
 								<td>{reviews[i].hours}</td>
 							</tr>
 						</tbody>
@@ -229,7 +229,7 @@ class Class extends Component {
 								<tr>
 									<td>Quality: {this.state.quality}</td>
 									<td>Difficulty: {this.state.difficulty}</td>
-									<td>Hours: {this.state.hours}</td>
+									<td>Time: {this.state.hours}</td>
 								</tr>
 							</tbody>
 						</table>

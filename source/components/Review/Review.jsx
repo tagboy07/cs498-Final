@@ -57,7 +57,7 @@ class Review extends Component {
 		this.setState({difficultyrating: e})
 	}
 	handleHoursChange(e){
-		this.setState({hoursrating: e})
+		this.setState({hoursrating: e.target.value})
 	}
 	handleChange(e){
 		this.setState({comment: e.target.value});
@@ -110,8 +110,9 @@ class Review extends Component {
 						<h1>Difficulty</h1>
 						<ReactStars className = "stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
 
-						<h1>Hours</h1>
-						<input value={this.state.hoursrating} onChange={this.handleHoursChange} />
+						<h1>Time</h1>
+						<ReactStars className = "stars" count={5} value = {this.state.hoursRating} onChange={this.handleHoursChange} size={24} color1={'#ffffff'} color2={'#1ECD97'} />
+						
 						<h1>Comment</h1>
 						<form className="Comment" onSubmit={this.handleSubmit}>
 								<textarea value={this.state.comment} onChange={this.handleChange}></textarea>
