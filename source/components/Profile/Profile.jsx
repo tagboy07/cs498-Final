@@ -5,7 +5,7 @@ import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import axios from 'axios'
 import styles from './Profile.scss'
 
-var baseURL = 'http://localhost:3000';
+var baseURL = 'http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000';
 
 class Profile extends Component {
 	constructor(props){

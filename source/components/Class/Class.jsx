@@ -97,7 +97,7 @@ class Class extends Component {
 		//console.log(theuser);
 		let theclass = this.state.classObject._id;
 		let th = this;
-		axios.get('http://localhost:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
+		axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}') 
 		.then(function (response) {
     		//console.log(response);
 			if(response.data.data.length == 0){

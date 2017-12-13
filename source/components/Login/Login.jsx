@@ -35,7 +35,7 @@ class Login extends Component {
 		event.preventDefault();
 		let th = this;
 
-		axios.post('http://localhost:3000/api/account/login', {
+		axios.post('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/account/login', {
 			username: this.state.username,
 			password: this.state.password
 		})

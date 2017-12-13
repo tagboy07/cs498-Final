@@ -41,7 +41,7 @@ class Register extends Component {
 			return;
 		}
 		
-		axios.post('http://localhost:3000/api/account/register', {
+		axios.post('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/account/register', {
 			username: this.state.username,
 			password: this.state.password
 		})
