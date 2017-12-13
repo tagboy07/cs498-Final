@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Container, Divider, Grid, Header, Input } from 'semantic-ui-react'
+import { Container, Divider, Grid, Input } from 'semantic-ui-react'
 import ReactStars from 'react-stars'
-
+import Header from '../Header/Header.jsx';
 import styles from './Review.scss'
 
 //const ratingChanged = (newRating) => {
@@ -18,12 +18,14 @@ class Review extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {	comment: '',
+    this.state = {
+					comment: '',
 				  	qualityrating: 0,
 				  	difficultyrating: 0,
 				  	hoursrating: 0,
           	username: '',
-          	className: ''
+          	className: '',
+			classTitle: ''
 				 };
 	this.handleQualityChange = this.handleQualityChange.bind(this);
 	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
@@ -83,8 +85,13 @@ class Review extends Component {
   render() {
     console.log(this.state.username, this.state.className)
     return (
+    	<div>
+    	      <Header></Header>
       	<div className="Review">
-			<h1 className = "Classheader">{this.state.className}</h1>
+			<div className="titles">
+						<h1>{this.state.className}</h1>
+						<h3>{this.state.classTitle}</h3>
+			</div>
 			<div className="Rating">
 				<h1 className = "Before">Quality</h1>
 				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
@@ -100,6 +107,7 @@ class Review extends Component {
 					<input className = "subbutton" type="submit" value="Submit" onClick={this.sendReview.bind(this)}/>
 				</form>
 			</div>
+		</div>
 		</div>
     );
   }
