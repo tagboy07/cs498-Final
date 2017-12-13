@@ -64,7 +64,7 @@ getReviews(user){
     	console.log(reviews[i].quality);
       items.push(
         <div className="rev" key={i}>
-          <p> comment: {reviews[i].comment} quality: {reviews[i].quality} difficulty: {reviews[i].difficulty} hours: {reviews[i].hours}</p>
+          <p> comment: {reviews[i].comment} </p>
         </div>
       )
     }
