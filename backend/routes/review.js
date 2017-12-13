@@ -7,12 +7,12 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
 	var classSearch = {
-		number: req.body.classNum,
-		major: req.body.className
+		number: req.body.class.classNum,
+		major: req.body.class.className
 	}
 	ClassSchema.findOne(classSearch, function(err, revClass) {
-    if(err) {
-      res.status(500).send({
+    if(err ) {
+      res.status(400).send({
         message: err,
         data: []
       });
@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
     else {
       var reviewData = {
         username: req.body.username,
-        class: revClass._id,
+        class: (revClass || {})._id,
         classNumber: req.body.classNum,
         classMajor: req.body.className,
         quality: req.body.quality,
@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
         anon: req.body.anon,
         dateCreated: req.body.dateCreated
       }
+      console.log(reviewData)
       ReviewSchema.create(reviewData, function(err, review) {
         if(err) {
     			res.status(500).send({

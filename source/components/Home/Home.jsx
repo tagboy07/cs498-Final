@@ -17,11 +17,11 @@ class Home extends Component {
         value: '',
         username:  '',
         divItems : [],
-        dumb: ''
-
+        dumb: '',
+        searchClass: 'searchForm'
     };
     this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);    
+    this.submit = this.submit.bind(this);
   }
 
   componentWillMount() {
@@ -34,17 +34,25 @@ class Home extends Component {
         this.setState({value: event.target.value.toUpperCase() });
     }
 
-	submit(event){
+	submit(event) {
     event.preventDefault();
     const prefixAndPostfix = this.state.value.split(/(\d+)/);
     var self = this;
-    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + prefixAndPostfix[1].trim() + ',' + '"major" :"' + prefixAndPostfix[0].trim() + '"}')
+    axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/class?where={"number":' + (prefixAndPostfix[1] || '').trim() + ',' + '"major" :"' + (prefixAndPostfix[0] || '').trim() + '"}')
       .then(function (response) {
         if(response.data.data.length >= 1 ){
           self.goToClass(response.data);
         }
+        else {
+          self.setState({
+            searchClass: 'searchForm-shake'
+          });
+        }
       })
       .catch(function (error) {
+        self.setState({
+          searchClass: 'searchForm-shake'
+        });
       });
 	}
 
@@ -63,10 +71,10 @@ class Home extends Component {
         <div className="transparentBlue"></div>
         <h1>SANITY CHECK</h1>
         <h3>The best place to review UIUC classes and see how hard next semester will be.</h3>
-        <form onSubmit={this.submit}>
+        <form className = {this.state.searchClass} onSubmit={this.submit}>
             <input  type="text"
                     placeholder="Search for a class..."
-                    value={this.state.value} 
+                    value={this.state.value}
                     onChange={this.handleChange}
             />
         </form>
