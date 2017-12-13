@@ -2,6 +2,7 @@ var express = require('express'),
   router = express.Router(),
   ClassSchema = require('../models/class'),
   studentSchema = require('../models/student');
+  ObjectId = require('mongodb').ObjectID;
 
 
 router.post('/', function(req, res) {
@@ -97,11 +98,13 @@ router.get('/:user/classes', function(req, res) {
     		});
     	}
     	else{
+    		var retArray = [];
+    		for(var i=0; i < student.classes.length; i++){
     		ClassSchema.find({
     			'_id': { $in: [
-    				student.classes
+    				student.classes[i]
     				]}
-    		}, function(err, classesArray) {
+    		}, function(err, classI) {
     			if(err) {
     				res.status(500).send({
     				message: err,
@@ -109,12 +112,18 @@ router.get('/:user/classes', function(req, res) {
     				});
     			}
     			else {
-    				res.status(200).send({
-    					message: 'OK',
-    					data: classesArray
-    				});
+    				console.log(classI);
+    				retArray.push(classI);
+    				
     			}
     		});
+    	}
+    	// console.log(retArray);
+    	res.status(200).send({
+    					message: 'OK',
+    					data: retArray
+    				});
+
     	}
     });
 
