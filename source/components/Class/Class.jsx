@@ -20,7 +20,6 @@ class Class extends Component {
 		this.getReviews(this.state.classObject);
   }
 
-
   getReviews(classObj){
     var self = this;
     console.log(classObj._id);
@@ -55,21 +54,26 @@ class Class extends Component {
    }
 
    	componentWillMount() {
-    const user = ((this.props.location || {}).state || {}).user
 		const curClass = ((this.props.location || {}).state || {}).className
-		console.log(user, curClass)
-    if(user) {
+    if(curClass) {
       this.setState({
-        username: user,
-		className: curClass
+		  className: curClass
       })
+    }
+    if(localStorage.getItem('username') != null) {
+      this.setState({username:localStorage.getItem('username') })
     }
   }
 
 	submit(event) {
     	event.preventDefault();
 //		Api call to check if user already submitted a review for this class
-		let theuser = this.state.username.user;
+    if(this.state.username ==''){
+      this.props.history.push({
+        pathname: `/login`})
+      return
+    }
+		let theuser = this.state.username;
 		console.log(theuser);
 		let theclass = this.state.classObject._id;
 		let th = this;
@@ -95,7 +99,7 @@ class Class extends Component {
 	render() {
 		return(
       <div>
-      <Header></Header>
+      <Header />
 			<div className="Class">
 				<div className="wrapper">
 

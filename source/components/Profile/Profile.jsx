@@ -11,7 +11,7 @@ class Profile extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			username : 'zzsamplelol',
+			username : '',
 			classDivs : [],
 			reviewDivs: []
 		}
@@ -20,6 +20,12 @@ class Profile extends Component {
 		this.getClasses = this.getClasses.bind(this);
 		this.getClasses();
 	}
+
+  componentWillMount() {
+    if(localStorage.getItem('username') != null) {
+      this.setState({username:localStorage.getItem('username') })
+    }
+  }
 
 getReviews(user){
     var self = this;

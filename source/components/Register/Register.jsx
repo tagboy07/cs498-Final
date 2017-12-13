@@ -50,8 +50,8 @@ class Register extends Component {
 			
 			th.props.history.push({
 				pathname: '/',
-				state: {user: response.data}
 			})
+			localStorage.setItem('username', response.data.user)
 		})
 		.catch(function (error) {
 			console.log(error);
