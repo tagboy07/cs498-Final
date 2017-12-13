@@ -59,10 +59,14 @@ getReviews(user){
   	let items = [];
 		// console.log(classes);
     for(var i=0; i < classes.length; i++){
+			if(i == classes.length - 1){
+				items.push(
+          <p className="class" key={i}>{classes[i].major}{classes[i].number}</p>
+      	)
+				break;
+			}
       items.push(
-        <div className="rev" key={i}>
-          <p> classs: {classes[i].title} </p>
-        </div>
+          <p className="class" key={i}>{classes[i].major}{classes[i].number},</p>
       )
     }
     this.setState({classDivs: items});
@@ -107,10 +111,15 @@ getReviews(user){
 			<div className="Profile">
 				<div className="wrapper">
 					
-					<h1>Username: {this.state.username}</h1>
+					<h1>Username:</h1>
+					<p>{this.state.username}</p>
 					
-					<h1 className="classes">Classes:</h1>{this.state.classes}
+					<br></br>
+					
+					<h1 className="classes">Classes:</h1>{this.state.classDivs}
 					<a className="edit" onClick={this.edit}>Edit</a>
+					
+					<br></br>
 					
 					<h1>Reviews:</h1>
 					

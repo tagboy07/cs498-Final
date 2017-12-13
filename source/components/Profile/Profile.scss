@@ -16,11 +16,19 @@ $green: #1ECD97;
 }
 
 .Profile h1{
+	display: inline-block;
 	color: white;
 }
 
 .Profile .classes{
 	display: inline-block;
+}
+
+.Profile .wrapper > p{
+	margin: 0 6px;
+	display: inline;
+	font-size: 24px;
+	color: white;
 }
 
 .Profile .edit{
