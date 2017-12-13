@@ -12,7 +12,13 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
+    	username: ''
     };
+  }
+  componentWillReceiveProps(newProps){
+    console.log(newProps)
+  	this.setState({username: newProps.theUsername })
+
   }
 
   render() {
