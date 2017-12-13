@@ -119,33 +119,33 @@ class Class extends Component {
 	render() {
 		return(
       <div>
-      <Header />
-			<div className="Class">
-				<div className="wrapper">
+				<Header />
+				<div className="Class">
+					<div className="wrapper">
 
-					<div className="titles">
-						<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
-						<h3>{this.state.classObject.title}</h3>
-						<button onClick={this.submit} type="button">Write Review</button> 
+						<div className="titles">
+							<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
+							<h3>{this.state.classObject.title}</h3>
+							<button onClick={this.submit} type="button">Write Review</button> 
+						</div>
+
+						<table className="ratings">
+							<tbody>
+								<tr>
+									<td>Quality: {this.state.quality}</td>
+									<td>Difficulty: {this.state.difficulty}</td>
+									<td>Hours: {this.state.hours}</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+						<div className="reviews">
+							{this.state.reviewDivs}
+						</div>
+
 					</div>
-
-					<table className="ratings">
-						<tbody>
-							<tr>
-								<td>Quality: {this.state.quality}</td>
-								<td>Difficulty: {this.state.difficulty}</td>
-								<td>Hours: {this.state.hours}</td>
-							</tr>
-						</tbody>
-					</table>
-
-					
-					<div className="reviews">
-						{this.state.reviewDivs}
-					</div>
-					
 				</div>
-			</div>
       </div>
 		)
 	}

@@ -42,9 +42,8 @@ class Login extends Component {
 		.then(function (response) {
 			console.log(response);
 			//TODO: Handle Right Password
-			th.props.history.push({
-				pathname: '/',
-			});
+			console.log(th.props.history);
+			th.props.history.goBack();
 			localStorage.setItem('username', response.data.user)
 		})
 		.catch(function (error) {
