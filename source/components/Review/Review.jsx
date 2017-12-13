@@ -18,12 +18,14 @@ class Review extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {	comment: '',
+    this.state = {
+					comment: '',
 				  	qualityrating: 0,
 				  	difficultyrating: 0,
 				  	hoursrating: 0,
           	username: '',
-          	className: ''
+          	className: '',
+			classTitle: ''
 				 };
 	this.handleQualityChange = this.handleQualityChange.bind(this);
 	this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
@@ -84,6 +86,10 @@ class Review extends Component {
     console.log(this.state.username, this.state.className)
     return (
       	<div className="Review">
+			<div className="titles">
+						<h1>{this.state.className}</h1>
+						<h3>{this.state.classTitle}</h3>
+			</div>
 			<div className="Rating">
 				<h1 className = "Before">Quality</h1>
 				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />

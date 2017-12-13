@@ -33,6 +33,7 @@ getReviews(user){
   }
 
   getClasses(){
+  	console.log("here");
   	var self = this;
   	axios.get(baseURL + '/api/student/' + this.state.username + '/classes')
   	.then(function (response) {

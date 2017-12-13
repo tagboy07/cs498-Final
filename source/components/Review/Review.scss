@@ -20,7 +20,7 @@
 	left: 50%;
 	transform: translateX(-25%);
 }
-h3, h1{
+.Review h3, .Review h1{
 	color: white;
 	text-align: center;
 }
@@ -30,4 +30,7 @@ h3, h1{
 }
 .subbutton{
 	position: relative;
+}
+.Classheader{
+	font-size: 62px;
 }
