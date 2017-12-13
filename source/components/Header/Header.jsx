@@ -12,14 +12,10 @@ class Header extends Component {
   constructor(props) {
     super();
     this.state = {
-      dummyString:''
     };
   }
   componentWillReceiveProps(newProps){
-    
-    this.setState({
-      dummyString: 'lol'
-    })
+        let data = localStorage.getItem('username');
   }
 
   deleteStorage(){
@@ -45,7 +41,7 @@ class Header extends Component {
   }
 
   render() {
-    var data = localStorage.getItem('username');
+    let data = localStorage.getItem('username');
     if(data != null){
       return (
         <div className="Header">				

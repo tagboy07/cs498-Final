@@ -16,7 +16,8 @@ class Home extends Component {
     this.state = {
         value: '',
         username:  '',
-        divItems : []
+        divItems : [],
+        dumb: ''
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -56,9 +57,9 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="fullBody">
+      <div className="fullBody" >
             <Header fake={"Test"}/>
-      <div className="Home">
+      <div className="Home" >
         <div className="transparentBlue"></div>
         <h1>SANITY CHECK</h1>
         <h3>The best place to review UIUC classes and see how hard next semester will be.</h3>
