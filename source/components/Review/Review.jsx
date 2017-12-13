@@ -34,10 +34,13 @@ class Review extends Component {
   }
 
   componentWillMount() {
+
+	const theClassTitle = ((this.props.location || {}).state || {}).classTitle
     const curClass = ((this.props.location || {}).state || {}).className
     if(curClass) {
       this.setState({
-        className: curClass
+        className: curClass,
+		classTitle: theClassTitle
       })
     }
     if(localStorage.getItem('username') != null) {
@@ -89,24 +92,28 @@ class Review extends Component {
     	<div>
     	<Header />
       	<div className="Review">
-			<div className="titles">
-						<h1>{this.state.className}</h1>
-						<h3>{this.state.classTitle}</h3>
-			</div>
-			<div className="Rating">
-				<h1 className = "Before">Quality</h1>
-				<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
-				<h1 className = "Before">Difficulty</h1>
-				<ReactStars className = "Stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color2={'#ffd700'} />
-				<h1 className = "Before">Hours</h1>
-				<ReactStars className = "Stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color2={'#ffd700'} />
-				<form className = "Comment" onSubmit={this.handleSubmit}>
-					<label>
-						<h3>Comment: </h3>
-						<input className = "textbox" type="text" value={this.state.comment} onChange={this.handleChange}/>
-					</label>
-					<input className = "subbutton" type="submit" value="Submit" onClick={this.sendReview.bind(this)}/>
-				</form>
+			<div className="wrapper">
+				<div className="titles">
+							<h1>{this.state.className}</h1>
+							<h3>{this.state.classTitle}</h3>
+				</div>
+				<div className="Rating">
+					<h1 className = "Before">Quality</h1>
+					<ReactStars className = "Stars" count={5} value = {this.state.qualityrating} onChange={this.handleQualityChange} size={24} color2={'#ffd700'} />
+					<h1 className = "Before">Difficulty</h1>
+					<ReactStars className = "Stars" count={5} value = {this.state.difficultyrating} onChange={this.handleDifficultyChange} size={24} color2={'#ffd700'} />
+					<h1 className = "Before">Hours</h1>
+					<ReactStars className = "Stars" count={5} value = {this.state.hoursrating} onChange={this.handleHoursChange} size={24} color2={'#ffd700'} />
+					<form className = "Comment" onSubmit={this.handleSubmit}>
+						<label>
+							<h3>Comment: </h3>
+							<input className = "textbox" type="text" value={this.state.comment} onChange={this.handleChange}/>
+						</label>
+					</form>
+					<form className = "boxform">
+						<input className = "subbutton" type="submit" value="Submit" onClick={this.sendReview.bind(this)}/>
+					</form>
+				</div>
 			</div>
 		</div>
 		</div>

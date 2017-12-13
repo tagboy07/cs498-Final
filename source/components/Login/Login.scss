@@ -1,3 +1,4 @@
+$blue: #13294b;
 $green: #1ECD97;
 
 .Login{
@@ -27,7 +28,7 @@ $green: #1ECD97;
   position: relative;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: transparent;
+	background-color: transparent !important;
   border: none;
   border-bottom: 2px solid white;
   color: white;
@@ -109,3 +110,11 @@ input:focus::-webkit-input-placeholder { color:transparent; }
 input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
 input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
 input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+		color: white;
+}

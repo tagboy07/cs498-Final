@@ -13,7 +13,9 @@ class Profile extends Component {
 		this.state = {
 			username : '',
 			classDivs : [],
-			reviewDivs: []
+			classes : [],
+			reviewDive: [],
+			reviews : []
 		}
 		this.getReviews = this.getReviews.bind(this);
 		this.getReviews(this.state.username);
@@ -31,6 +33,8 @@ getReviews(user){
     var self = this;
     axios.get(baseURL + '/api/review?where={"username":' + '"' + this.state.username + '"}')
       .then(function (response) {
+				console.log(response)
+			self.setState({ reviews : response.data.data});
         self.addDivs(response.data.data);
     })
     .catch(function (error) {
@@ -44,6 +48,8 @@ getReviews(user){
   	axios.get(baseURL + '/api/student/' + this.state.username + '/classes')
   	.then(function (response) {
         console.log(response);
+						self.setState({ classes : response.data.data});
+
         self.addClassesDivs(response.data.data);
     })
     .catch(function (error) {
@@ -53,6 +59,7 @@ getReviews(user){
 
   addClassesDivs(classes){
   	let items = [];
+		console.log(classes);
     for(var i=0; i < classes.length; i++){
       items.push(
         <div className="rev" key={i}>
@@ -62,15 +69,22 @@ getReviews(user){
     }
     this.setState({classDivs: items});
   }
-  
+
 
   addDivs(reviews){
     let items = [];
     for(var i=0; i < reviews.length; i++){
     	console.log(reviews[i].quality);
       items.push(
-        <div className="rev" key={i}>
-          <p> comment: {reviews[i].comment} </p>
+				<div className="review" key={i}>
+					<table className="reviewRatings">
+						<tr>
+							<td>Quality: {reviews[i].quality}</td>
+							<td>Difficulty: {reviews[i].difficulty}</td>
+							<td>Hours: {reviews[i].hours}</td>
+						</tr>
+					</table>
+          <p> comment: {reviews[i].comment}</p>
         </div>
       )
     }
@@ -79,10 +93,12 @@ getReviews(user){
 
 	render() {
 		return(
-			<div className="Profile">
-				<div className="reviewss">
- 					{this.state.reviewDivs}
- 				</div>
+			<div className="Class">
+				<div className="wrapper">
+					<div className="reviews">
+	 					{this.state.reviewDivs}
+	 				</div>
+				</div>
  				<div className="classes">
  					{this.state.classDivs}
  				</div>
