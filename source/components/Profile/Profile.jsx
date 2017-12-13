@@ -13,7 +13,9 @@ class Profile extends Component {
 		this.state = {
 			username : 'zzsamplelol',
 			classDivs : [],
-			reviewDivs: []
+			classes : [],
+			reviewDive: [],
+			reviews : []
 		}
 		this.getReviews = this.getReviews.bind(this);
 		this.getReviews(this.state.username);
@@ -26,6 +28,7 @@ getReviews(user){
     axios.get(baseURL + '/api/review?where={"username":' + '"' + this.state.username + '"}')
       .then(function (response) {
 				console.log(response)
+			self.setState({ reviews : response.data.data});
         self.addDivs(response.data.data);
     })
     .catch(function (error) {
@@ -39,6 +42,8 @@ getReviews(user){
   	axios.get(baseURL + '/api/student/' + this.state.username + '/classes')
   	.then(function (response) {
         console.log(response);
+						self.setState({ classes : response.data.data});
+
         self.addClassesDivs(response.data.data);
     })
     .catch(function (error) {
@@ -48,6 +53,7 @@ getReviews(user){
 
   addClassesDivs(classes){
   	let items = [];
+		console.log(classes);
     for(var i=0; i < classes.length; i++){
       items.push(
         <div className="rev" key={i}>
