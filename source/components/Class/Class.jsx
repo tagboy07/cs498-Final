@@ -12,6 +12,7 @@ class Class extends Component {
 		this.state = {
 			classObject : this.props.location.state.classObje.data[0],
 			reviewDivs: [],
+			reviewObjs: [],
 			username: '',
 			className: '',
 			quality: '',
@@ -27,14 +28,67 @@ class Class extends Component {
 
 	getReviews(classObj){
 		var self = this;
+		console.log("here");
 		//console.log(classObj._id);
 		axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"class":' + '"' + classObj._id + '"}')
 		.then(function (response) {
-			self.addDivs(response.data.data);
+			const reviews = response.data.data
+			var tempQuality = 0;
+			var tempDifficulty = 0;
+			var tempHours = 0;
+			for(var i=0; i < reviews.length; i++) {
+				tempQuality += reviews[i].quality;
+				tempDifficulty += reviews[i].difficulty;
+				tempHours += reviews[i].hours;
+			}
+			self.setState({quality : tempQuality/reviews.length}, () => {
+				self.setState({difficulty: tempDifficulty/reviews.length}, () => {
+					self.setState({hours: tempHours/reviews.length}, () => {
+						self.setState({reviewObjs: reviews}, () => {
+							console.log("got reviews they are", self.state.reviewObjs)
+						});
+					});
+				});
+			});
 		})
 		.catch(function (error) {
 			//console.log(error);
 		});
+	}
+
+	renderReviews(reviews) {
+		let items = [];
+		var tempQuality = 0;
+		var tempDifficulty = 0;
+		var tempHours = 0;
+		items = []
+		for(var i=0; i < reviews.length; i++) {
+			tempQuality += reviews[i].quality;
+			tempDifficulty += reviews[i].difficulty;
+			tempHours += reviews[i].hours;
+			items.push(
+				<div className="review" key={i}>
+					<table className="reviewRatings">
+						<tbody>
+							<tr>
+								<td>Quality:</td>
+								<td>{reviews[i].quality}</td>
+							</tr>
+							<tr>
+								<td>Difficulty:</td>
+								<td>{reviews[i].difficulty}</td>
+							</tr>
+							<tr>
+								<td>Hours:</td>
+								<td>{reviews[i].hours}</td>
+							</tr>
+						</tbody>
+					</table>
+					<p className="comment">{reviews[i].comment}</p>
+				</div>
+			);
+		}
+		return items;
 	}
 
 	addDivs(reviews){
@@ -76,6 +130,7 @@ class Class extends Component {
 	}
 
 	componentWillMount() {
+		console.log("will be mounting");
 		const curClass = ((this.props.location || {}).state || {}).className
 		if(curClass) {
 			this.setState({
@@ -91,7 +146,7 @@ class Class extends Component {
 					th.setState({
 						revToggle: resObj
 					}, () => {
-						console.log("revtoggle", th.state.revToggle)
+						console.log("mounting revtoggle", th.state.revToggle)
 					});
 				});
 			});
@@ -99,83 +154,93 @@ class Class extends Component {
 	}
 
 
-		submitReview() {
-			event.preventDefault();
-			if(this.state.username ==''){
-				this.props.history.push({
-					pathname: `/login`
-				});
-				return
-			}
+	submitReview() {
+		event.preventDefault();
+		if(this.state.username ==''){
 			this.props.history.push({
-				pathname: `/review`,
-				state: {className: this.state.className, classTitle: this.state.classObject.title, user: this.state.username}
+				pathname: `/login`
 			});
+			return
 		}
+		this.props.history.push({
+			pathname: `/review`,
+			state: {className: this.state.className, classTitle: this.state.classObject.title, user: this.state.username}
+		});
+	}
 
-		deleteReview() {
-			event.preventDefault();
-			if(this.state.username ==''){
-				this.props.history.push({
-					pathname: `/login`
+	deleteReview() {
+		event.preventDefault();
+		if(this.state.username ==''){
+			this.props.history.push({
+				pathname: `/login`
+			});
+			return
+		}
+		const revId = this.state.revToggle[0]._id;
+		const queryStr = 'http://localhost:3000/api/review/' + revId
+		let th = this
+		axios.delete(queryStr)
+		.then(() => {
+			th.setState({
+				revToggle: []
+			}, () => {
+				const newRevArray = th.state.reviewObjs.filter(item => {
+					if(item._id == revId) {
+						return false;
+					}
 				});
-				return
-			}
-			const revId = this.state.revToggle[0]._id;
-			const queryStr = 'http://localhost:3000/api/review/' + revId
-			let th = this
-			axios.delete(queryStr)
-			.then(() => {
 				th.setState({
-					revToggle: []
+					reviewObjs: newRevArray
 				})
 			})
+		})
+	}
+
+	renderButton() {
+		console.log("TOGGLING", this.state.revToggle)
+		if(this.state.revToggle.length == 0) {
+			return (
+				<button onClick={this.submitReview} type="button">Write Review</button>
+			)
 		}
-
-		renderButton() {
-			if(this.state.revToggle.length == 0) {
-				return (
-					<button onClick={this.submitReview} type="button">Write Review</button>
-				)
-			}
-			else {
-				return (
-					<button onClick={this.deleteReview} type="button">Delete Review</button>
-				)
-			}
-		}
-
-		render() {
-			return(
-				<div>
-					<Header />
-					<div className="Class">
-						<div className="wrapper">
-
-							<div className="titles">
-								<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
-								<h3>{this.state.classObject.title}</h3>
-								{this.renderButton()}
-							</div>
-
-							<table className="ratings">
-								<tbody>
-									<tr>
-										<td>Quality: {this.state.quality}</td>
-										<td>Difficulty: {this.state.difficulty}</td>
-										<td>Hours: {this.state.hours}</td>
-									</tr>
-								</tbody>
-							</table>
-							<div className="reviews">
-								{this.state.reviewDivs}
-							</div>
-
-						</div>
-					</div>
-				</div>
+		else {
+			return (
+				<button onClick={this.deleteReview} type="button">Delete Review</button>
 			)
 		}
 	}
 
-	export default Class
+	render() {
+		console.log(this.state.reviewObjs)
+		return(
+			<div>
+				<Header />
+				<div className="Class">
+					<div className="wrapper">
+
+						<div className="titles">
+							<h1>{this.state.classObject.major}{this.state.classObject.number}</h1>
+							<h3>{this.state.classObject.title}</h3>
+							{this.renderButton()}
+						</div>
+
+						<table className="ratings">
+							<tbody>
+								<tr>
+									<td>Quality: {this.state.quality}</td>
+									<td>Difficulty: {this.state.difficulty}</td>
+									<td>Hours: {this.state.hours}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div className="reviews">
+							{this.renderReviews(this.state.reviewObjs)}
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+}
+
+export default Class

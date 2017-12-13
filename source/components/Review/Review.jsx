@@ -72,14 +72,14 @@ class Review extends Component {
     const classNum = Number(this.state.className.match(/\d+/g)[0].trim());
     const className = this.state.className.replace(/[0-9]/g, '').trim();
     console.log(this.state.username, this.state.className,this.state.qualityrating, this.state.difficultyrating, this.state.hoursrating, this.state.comment)
-		if(window.confirm('User' + this.state.username + 'Submit Review for ' + this.state.className + '?\n Quality: '+ this.state.qualityrating + '\n Difficulty: ' + this.state.difficultyrating + '\n Hours: '+ this.state.hoursrating + '\n Comment: ' + this.state.comment) == true){
+		if(1){
 			axios.post('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review/', {
 			username: this.state.username,
 			class: {classNum, className},
-			quality: this.state.qualityrating,
-			difficulty: this.state.difficultyrating,
-			hours: this.state.hoursrating,
-			comment: this.state.comment
+			quality: this.state.qualityrating || 0,
+			difficulty: this.state.difficultyrating || 0,
+			hours: this.state.hoursrating || 0,
+			comment: this.state.comment || ''
 		  })
 		  .then(function (response) {
 			console.log(response);
