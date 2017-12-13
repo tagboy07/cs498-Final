@@ -14,7 +14,10 @@ class Class extends Component {
 			classObject : this.props.location.state.classObje.data[0],
 			reviewDivs: [],
 			username: '',
-			className: ''
+			className: '',
+      quality: '',
+      difficulty: '',
+      hours: ''
 		};
 		this.getReviews = this.getReviews.bind(this);
 		this.getReviews(this.state.classObject);
@@ -36,8 +39,13 @@ class Class extends Component {
   addDivs(reviews){
     console.log(reviews);
     let items = [];
+    var tempQuality = 0;
+    var tempDifficulty = 0;
+    var tempHours = 0;
     for(var i=0; i < reviews.length; i++){
-    	console.log(reviews[i].quality);
+    	tempQuality += reviews[i].quality;
+      tempDifficulty += reviews[i].difficulty;
+      tempHours += reviews[i].hours;
       items.push(
         <div className="review" key={i}>
 					<table className="reviewRatings">
@@ -60,6 +68,9 @@ class Class extends Component {
         </div>
       )
     }
+    this.setState({quality : tempQuality/reviews.length});
+    this.setState({difficulty: tempDifficulty/reviews.length});
+    this.setState({hours: tempHours/reviews.length});
     this.setState({reviewDivs: items});
    }
 
@@ -117,9 +128,9 @@ class Class extends Component {
 					<table className="ratings">
 						<tbody>
 							<tr>
-								<td>Quality: {this.state.classObject.quality}</td>
-								<td>Difficulty: {this.state.classObject.difficulty}</td>
-								<td>Hours: {this.state.classObject.hours}</td>
+								<td>Quality: {this.state.quality}</td>
+								<td>Difficulty: {this.state.difficulty}</td>
+								<td>Hours: {this.state.hours}</td>
 							</tr>
 						</tbody>
 					</table>

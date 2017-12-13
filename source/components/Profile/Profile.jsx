@@ -27,7 +27,8 @@ getReviews(user){
     var self = this;
     axios.get(baseURL + '/api/review?where={"username":' + '"' + this.state.username + '"}')
       .then(function (response) {
-				console.log(response)
+        console.log("classmajor");
+				console.log(response.data.data[3].classMajor);
 			self.setState({ reviews : response.data.data});
         self.addDivs(response.data.data);
     })
@@ -41,9 +42,9 @@ getReviews(user){
   	var self = this;
   	axios.get(baseURL + '/api/student/' + this.state.username + '/classes')
   	.then(function (response) {
-        console.log(response);
+        // console.log(response);
 						self.setState({ classes : response.data.data});
-
+            // console.log(response.data.data);
         self.addClassesDivs(response.data.data);
     })
     .catch(function (error) {
@@ -53,7 +54,7 @@ getReviews(user){
 
   addClassesDivs(classes){
   	let items = [];
-		console.log(classes);
+		// console.log(classes);
     for(var i=0; i < classes.length; i++){
       items.push(
         <div className="rev" key={i}>
