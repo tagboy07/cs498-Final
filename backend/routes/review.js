@@ -121,7 +121,7 @@ router.delete('/:id', function(req, res){
 			});
     }
     else {
-			ClassSchema.findByIdAndRemove(review.class, function(err, classObj) {
+			ClassSchema.findOneAndUpdate(review.class, { $pullAll: {reviews: [req.params.id] } }, function(err, classObj) {
 					if(err) {
 						res.status(500).send({
 						messages: err,
@@ -129,7 +129,7 @@ router.delete('/:id', function(req, res){
 						});
 					}
 					else {
-						StudentSchema.findOneAndUpdate({username:review.username}, { $pullAll: {uid: [req.params.id] } }, function(err, student) {
+						StudentSchema.findOneAndUpdate({username:review.username}, { $pullAll: {reviews: [req.params.id] } }, function(err, student) {
 							if(err) {
 								res.status(500).send({
 									messages: err,
@@ -182,6 +182,6 @@ router.put('/:id', function(req, res) {
 			}
 		}
 	});
-});
+})
 
 module.exports = router;

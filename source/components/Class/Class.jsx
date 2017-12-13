@@ -9,7 +9,6 @@ import styles from './Class.scss'
 class Class extends Component {
 	constructor(props) {
 		super(props);
-		this.submit = this.submit.bind(this);
 		this.state = {
 			classObject : this.props.location.state.classObje.data[0],
 			reviewDivs: [],
@@ -91,42 +90,14 @@ class Class extends Component {
 					const resObj = response.data.data;
 					th.setState({
 						revToggle: resObj
+					}, () => {
+						console.log("revtoggle", th.state.revToggle)
 					});
 				});
 			});
 		}
 	}
 
-	submit(event) {
-		event.preventDefault();
-		//		Api call to check if user already submitted a review for this class
-		if(this.state.username ==''){
-			this.props.history.push({
-				pathname: `/login`})
-				return
-			}
-			let theuser = this.state.username;
-			//console.log(theuser);
-			let theclass = this.state.classObject._id;
-			let th = this;
-			axios.get('http://ec2-18-217-116-49.us-east-2.compute.amazonaws.com:3000/api/review?where={"username":'+'"' + theuser + '"' + ',' + '"class":"' + theclass + '"}')
-			.then(function (response) {
-				//console.log(response);
-				if(response.data.data.length == 0){
-					//console.log("Submitting the class", th.state.className, th.state.username)
-					th.props.history.push({
-						pathname: `/review`,
-						state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
-					});
-				}
-				else{
-					alert("You already submitted a review for this class.");
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-		}
 
 		submitReview() {
 			event.preventDefault();
@@ -138,7 +109,7 @@ class Class extends Component {
 			}
 			this.props.history.push({
 				pathname: `/review`,
-				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
+				state: {className: this.state.className, classTitle: this.state.classObject.title, user: this.state.username}
 			});
 		}
 
@@ -150,21 +121,26 @@ class Class extends Component {
 				});
 				return
 			}
-			this.props.history.push({
-				pathname: `/review`,
-				state: {className: th.state.className, classTitle: th.state.classObject.title, user: th.state.username}
-			});
+			const revId = this.state.revToggle[0]._id;
+			const queryStr = 'http://localhost:3000/api/review/' + revId
+			let th = this
+			axios.delete(queryStr)
+			.then(() => {
+				th.setState({
+					revToggle: []
+				})
+			})
 		}
 
 		renderButton() {
 			if(this.state.revToggle.length == 0) {
 				return (
-					<button onClick={this.submit} type="button">Write Review</button>
+					<button onClick={this.submitReview} type="button">Write Review</button>
 				)
 			}
 			else {
 				return (
-					<button onClick={this.submit} type="button">Delete Review</button>
+					<button onClick={this.deleteReview} type="button">Delete Review</button>
 				)
 			}
 		}
@@ -191,8 +167,6 @@ class Class extends Component {
 									</tr>
 								</tbody>
 							</table>
-
-
 							<div className="reviews">
 								{this.state.reviewDivs}
 							</div>
